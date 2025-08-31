@@ -6,10 +6,10 @@ US2SWEdiff is a tool which generates SWE images corresponding to US images using
 Overview
 =============
 
-.. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/US2SWEdiff_logo.pdf
+.. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/US2SWEdiff_logo.jpg
    :width: 180
 
-.. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/model.pdf
+.. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/model.jpg
    :width: 1000
 
 
