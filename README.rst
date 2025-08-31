@@ -19,15 +19,17 @@ Step 1: Conda Environment Preparation
 -----------------------
 First install `Anaconda/Miniconda <https://docs.conda.io/en/latest/miniconda.html>`_. Then, create environment and install packages and dependencies using following command:
 
-.. code-block::
-   # Create a new environment named "controlnet" with Python 3.10
-   conda create -n controlnet python=3.10
+.. code-block:: bash
 
-   # Activate the environment
-   conda activate controlnet
+    # Create a new environment named "controlnet" with Python 3.10
+    conda create -n controlnet python=3.10
 
-   # Install dependencies from controlnet.yaml (environment reproduction)
-   conda env update -n controlnet -f controlnet.yaml
+    # Activate the environment
+    conda activate controlnet
+
+    # Install dependencies from controlnet.yaml (environment reproduction)
+    conda env update -n controlnet -f controlnet.yaml
+
 
 
 
