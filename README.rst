@@ -110,7 +110,7 @@ Now open your browser and go to the displayed URL (commonly ``http://127.0.0.1:7
 Gradio Interface Usage Instructions
 ~~~~~~~~~~~~~~~~~~
 
-.. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/gradio_png
+.. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/gradio.png
    :width: 1000
 
 1. **Upload an image**: Click the top-left window to upload your input image.
