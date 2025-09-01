@@ -70,11 +70,10 @@ On your *local machine*, establish SSH port forwarding and access the interface:
 
    ssh -CNg -L 6006:127.0.0.1:6006 root@connect.nmb1.seetacloud.com -p <PORT>
 
-.. note::
-
-   On the first connection, if asked *yes/no*, type ``yes``. Then enter the server password 
-   (note: the password will not be displayed while typing or pasting).  
-   If you see ``Permission denied``, it likely means the password entry failed. Please retry.
+** Note **:
+* On the first connection, if asked *yes/no*, type ``yes``. 
+* Then enter the server password (note: the password will not be displayed while typing or pasting).  
+* If you see ``Permission denied``, it likely means the password entry failed. Please retry.
 
 After connecting, open your browser at: ``http://localhost:6006`` to access the Gradio interface.
 
