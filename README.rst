@@ -118,7 +118,11 @@ You can run the Gradio interface in **two ways**:
 3. **Generate**: Click **Generate**. After a short wait, the right-hand panel will display 
    the extracted **Laplacian edges** and the generated **SWE image**.
 
+    .. note::
 
+       Two advanced options are provided:
+       - Images: the number of images that you want to generate.  
+       - Laplacian ksize (odd): the size of the convolution kernel (filter matrix) applied to the image (small: fine, sharp edges; large: thicker, smoother edges)
 
 Option 2: Provided Scripts
 ------------------------------------
