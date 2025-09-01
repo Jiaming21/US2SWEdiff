@@ -107,10 +107,13 @@ Once the Gradio server has started, the terminal will display something like:
 Now open your browser and go to the displayed URL (commonly ``http://127.0.0.1:7860`` or 
 ``http://localhost:7860``) to access the interface.
 
-Usage Instructions
+Gradio Interface Usage Instructions
 ~~~~~~~~~~~~~~~~~~
 
-1. **Upload an image**: Click the top-left button to upload your input image.
+.. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/gradio_png
+   :width: 1000
+
+1. **Upload an image**: Click the top-left window to upload your input image.
 2. **Enter the prompt**: In the *prompt* field, type your description, e.g.:  
    ``a photo of a benign breast tumor`` or ``a photo of a malignant breast tumor``.
 3. **Generate**: Click **Generate**. After a short wait, the right-hand panel will display 
