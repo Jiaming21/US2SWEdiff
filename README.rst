@@ -62,52 +62,51 @@ You can run the Gradio interface in **two ways**:
 #. **Run on Remote Server**
 ~~~~~~~~~~~~~~~~~~~
 
-On the *remote server* (Linux terminal):
+    On the *remote server* (Linux terminal):
 
-.. code-block:: bash
+    .. code-block:: bash
 
-   cd ControlNet-main/gradio
-   python app.py
+       cd ControlNet-main/gradio
+       python app.py
 
-On your *local machine*, establish SSH port forwarding:
+    On your *local machine*, establish SSH port forwarding:
 
-- **Windows**: open *PowerShell*
-- **macOS / Linux**: open *Terminal*
+    - **Windows**: open *PowerShell*
+    - **macOS / Linux**: open *Terminal*
 
-.. code-block:: bash
+    .. code-block:: bash
 
-   ssh -CNg -L 6006:127.0.0.1:6006 root@connect.nmb1.seetacloud.com -p <PORT>
+       ssh -CNg -L 6006:127.0.0.1:6006 root@connect.nmb1.seetacloud.com -p <PORT>
 
-.. note::
+    .. note::
 
-   - On the first connection, if prompted with *yes/no*, type ``yes``.  
-   - Enter the server password (it will not be displayed while typing or pasting — this is normal).  
-   - If you see ``Permission denied``, the password was likely incorrect. Please retry.
+       - On the first connection, if prompted with *yes/no*, type ``yes``.  
+       - Enter the server password (it will not be displayed while typing or pasting — this is normal).  
+       - If you see ``Permission denied``, the password was likely incorrect. Please retry.
 
-After connecting, open your browser at: ``http://localhost:6006`` to access the Gradio interface.
+    After connecting, open your browser at: ``http://localhost:6006`` to access the Gradio interface.
 
 #. **Run on Local Computer**
 ~~~~~~~~~~~~~~~~~~~~
 
-If you prefer to run everything directly on your **local computer**:
+    If you prefer to run everything directly on your **local computer**:
 
-On your **local terminal** (PowerShell for Windows, or Terminal for macOS/Linux):
+    On your **local terminal** (PowerShell for Windows, or Terminal for macOS/Linux):
 
-.. code-block:: bash
+    .. code-block:: bash
 
-   cd ControlNet-main/gradio
-   python app.py
+       cd ControlNet-main/gradio
+       python app.py
 
-Once the Gradio server has started, the terminal will display something like:
+    Once the Gradio server has started, the terminal will display something like:
 
-.. code-block:: text
+    .. code-block:: text
 
-   Running on local URL:  http://127.0.0.1:7860/
+       Running on local URL:  http://127.0.0.1:7860/
 
-Now open your browser and go to the displayed URL (commonly ``http://127.0.0.1:7860`` or 
-``http://localhost:7860``) to access the interface.
+    Now open your browser and go to the displayed URL (commonly ``http://127.0.0.1:7860`` or ``http://localhost:7860``) to access the interface.
 
-Gradio Interface Usage Instructions
+**Gradio Interface Usage Instructions**
 ~~~~~~~~~~~~~~~~~~
 
 .. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/gradio.png
@@ -119,7 +118,10 @@ Gradio Interface Usage Instructions
 3. **Generate**: Click **Generate**. After a short wait, the right-hand panel will display 
    the extracted **Laplacian edges** and the generated **SWE image**.
 
+
+
 Option 2: Provided Scripts
+------------------------------------
 
 .. code-block:: bash
 
