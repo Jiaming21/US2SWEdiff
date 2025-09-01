@@ -45,18 +45,11 @@ Step 3 — Run Inference
 ======================
 
 After completing the environment setup and cloning the repository (see Step 1 and Step 2), 
-you can perform inference using either the **Gradio** graphical interface or a provided script.
+you can perform inference using either the **Gradio** graphical interface or command line.
 
 .. contents::
    :local:
    :depth: 2
-
-Prerequisites
--------------
-
-- Dependencies have been installed and the repository cloned on a remote instance 
-  (e.g., `AutoDL <https://www.autodl.com/>`_).
-- Port forwarding is not blocked by local firewalls or security software.
 
 Option 1: Using the Gradio Interface
 ------------------------------------
