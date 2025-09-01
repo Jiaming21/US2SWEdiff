@@ -41,7 +41,7 @@ Clone the US2SWEdiff repository from GitHub:
     git clone https://github.com/Jiaming21/US2SWEdiff.git
     cd US2SWEdiff
 
-Step 3 — Run Inference
+Step 3: Run Inference
 ======================
 
 After completing the environment setup and cloning the repository (see Step 1 and Step 2), 
@@ -59,7 +59,7 @@ You can run the Gradio interface in **two ways**:
 1. On a **remote server** with SSH port forwarding.
 2. Directly on your **local computer**.
 
-Run on Remote Server
+#. Run on Remote Server
 ~~~~~~~~~~~~~~~~~~~
 
 On the *remote server* (Linux terminal):
@@ -86,7 +86,7 @@ On your *local machine*, establish SSH port forwarding:
 
 After connecting, open your browser at: ``http://localhost:6006`` to access the Gradio interface.
 
-Run on Local Computer
+#. Run on Local Computer
 ~~~~~~~~~~~~~~~~~~~~
 
 If you prefer to run everything directly on your **local computer**:
