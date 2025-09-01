@@ -113,8 +113,8 @@ You can run the Gradio interface in **two ways**:
 1. **Upload an image**: Click the top-left window to upload your input image.
 2. **Enter the prompt**: In the *prompt* field, type your description, e.g.:  
    ``a photo of a benign breast tumor`` or ``a photo of a malignant breast tumor``.
-3. **Generate**: Click **Generate**. After a short wait, the right-hand panel will display 
-   the extracted **Laplacian edges** and the generated **SWE image**.
+3. **Generate**: Click the **Generate** button. After a short wait, the right-hand panel will display 
+   the extracted **Laplacian edge** and the generated **SWE images**.
 
 **Advanced options:**
     - **Images** — the number of images to generate.
