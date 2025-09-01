@@ -16,7 +16,7 @@ Inference
 =============
 
 Step 1: Prepare Conda Environment
------------------------
+======================
 First install `Anaconda/Miniconda <https://docs.conda.io/en/latest/miniconda.html>`_. Then, create environment and install packages and dependencies using following command (here CUDA 11.3):
 
 .. code-block:: bash
@@ -33,7 +33,7 @@ First install `Anaconda/Miniconda <https://docs.conda.io/en/latest/miniconda.htm
 This will create a conda environment named ``controlnet`` with packages and dependencies installed.
 
 Step 2: Pull from GitHub Repository
------------------------
+======================
 Clone the US2SWEdiff repository from GitHub:
 
 .. code-block:: bash
