@@ -89,9 +89,7 @@ You can run the Gradio interface in **two ways**:
 **Run on Local Computer**
 ~~~~~~~~~~~~~~~~~~~~
 
-    If you prefer to run everything directly on your **local computer**:
-
-    On your **local terminal** (PowerShell for Windows, or Terminal for macOS/Linux):
+    On your *local terminal* (PowerShell for Windows, or Terminal for macOS/Linux):
 
     .. code-block:: bash
 
