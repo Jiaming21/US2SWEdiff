@@ -42,7 +42,7 @@ Clone the US2SWEdiff repository from GitHub:
     cd US2SWEdiff
 
 Step 3 — Run Inference
------------------------
+======================
 
 After completing the environment setup and cloning the repository (see Step 1 and Step 2), 
 you can perform inference using either the **Gradio** graphical interface or command line.
