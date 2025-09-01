@@ -118,14 +118,9 @@ You can run the Gradio interface in **two ways**:
 3. **Generate**: Click **Generate**. After a short wait, the right-hand panel will display 
    the extracted **Laplacian edges** and the generated **SWE image**.
 
-.. note::
-
-   **Advanced options:**
-
-   - **Images** — the number of images to generate.
-   - **Laplacian ksize (odd)** — the kernel size used by the Laplacian edge detector
-     (odd integers only: 1, 3, 5, 7, …). Smaller values give finer, sharper edges;
-     larger values give thicker, smoother edges (with more noise suppression).
+**Advanced options:**
+- **Images** — the number of images to generate.
+- **Laplacian ksize (odd)** — the kernel size used by the Laplacian edge detector (odd integers only: 1, 3, 5, 7, …). Smaller values give finer, sharper edges; larger values give thicker, smoother edges (with more noise suppression).
 
 
 Option 2: Provided Scripts
