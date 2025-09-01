@@ -54,14 +54,22 @@ you can perform inference using either the **Gradio** graphical interface or com
 Option 1: Using the Gradio Interface
 ------------------------------------
 
-On the *remote server* (Linux terminal), start the application:
+You can run the Gradio interface in **two ways**:
+
+1. On a **remote server** with SSH port forwarding.
+2. Directly on your **local computer**.
+
+Remote Server Setup
+~~~~~~~~~~~~~~~~~~~
+
+On the *remote server* (Linux terminal):
 
 .. code-block:: bash
 
    cd ControlNet-main/gradio
    python app.py
 
-On your *local machine*, establish SSH port forwarding and access the interface:
+On your *local machine*, establish SSH port forwarding:
 
 - **Windows**: open *PowerShell*
 - **macOS / Linux**: open *Terminal*
@@ -70,25 +78,45 @@ On your *local machine*, establish SSH port forwarding and access the interface:
 
    ssh -CNg -L 6006:127.0.0.1:6006 root@connect.nmb1.seetacloud.com -p <PORT>
 
-**Notes:**
-   
-- On the first connection, if prompted with *yes/no*, type ``yes``.  
-- Then enter the server password. (The password will not be displayed while typing or pasting — this is normal.)  
-- If you see ``Permission denied``, it usually means the password entry failed. Please try again.
+.. note::
 
+   - On the first connection, if prompted with *yes/no*, type ``yes``.  
+   - Enter the server password (it will not be displayed while typing or pasting — this is normal).  
+   - If you see ``Permission denied``, the password was likely incorrect. Please retry.
 
 After connecting, open your browser at: ``http://localhost:6006`` to access the Gradio interface.
 
-Interface Usage
----------------
+Local Computer Setup
+~~~~~~~~~~~~~~~~~~~~
 
-1. **Upload an image**: Click the top-left corner to upload an input image.
-2. **Enter the prompt**: In the *prompt* field, specify whether to generate a benign or malignant tumor image, for example:  
+If you prefer to run everything directly on your **local computer**:
+
+On your **local terminal** (PowerShell for Windows, or Terminal for macOS/Linux):
+
+.. code-block:: bash
+
+   cd ControlNet-main/gradio
+   python app.py
+
+Once the Gradio server has started, the terminal will display something like:
+
+.. code-block:: text
+
+   Running on local URL:  http://127.0.0.1:7860/
+
+Now open your browser and go to the displayed URL (commonly ``http://127.0.0.1:7860`` or 
+``http://localhost:7860``) to access the interface.
+
+Usage Instructions
+~~~~~~~~~~~~~~~~~~
+
+1. **Upload an image**: Click the top-left button to upload your input image.
+2. **Enter the prompt**: In the *prompt* field, type your description, e.g.:  
    ``a photo of a benign breast tumor`` or ``a photo of a malignant breast tumor``.
-3. **Generate**: Click **Generate**. After a short wait, the right-hand side will display 
+3. **Generate**: Click **Generate**. After a short wait, the right-hand panel will display 
    the extracted **Laplacian edges** and the generated **SWE image**.
 
-Option 2: Provided Script
+Option 2: Provided Scripts
 
 .. code-block:: bash
 
