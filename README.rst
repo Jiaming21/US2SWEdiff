@@ -51,7 +51,7 @@ you can perform inference using either the **Gradio** graphical interface or com
    :local:
    :depth: 2
 
-Option 1: Using the Gradio Interface
+Option 1: Using Gradio Interface
 ------------------------------------
 
 You can run the Gradio interface in **two ways**:
@@ -121,7 +121,7 @@ You can run the Gradio interface in **two ways**:
     - **Laplacian ksize (odd)** — the kernel size used by the Laplacian edge detector (odd integers only: 1, 3, 5, 7, …). Smaller values give finer, sharper edges; larger values give thicker, smoother edges (with more noise suppression).
 
 
-Option 2: Provided Scripts
+Option 2: Using Provided Scripts
 ------------------------------------
 
 .. code-block:: bash
