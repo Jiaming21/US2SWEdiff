@@ -59,7 +59,7 @@ You can run the Gradio interface in **two ways**:
 1. On a **remote server** with SSH port forwarding.
 2. Directly on your **local computer**.
 
-**Run on Remote Server**
+- **Run on Remote Server**
 ~~~~~~~~~~~~~~~~~~~
 
     On the *remote server* (Linux terminal):
