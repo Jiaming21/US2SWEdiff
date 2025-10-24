@@ -1,2 +1,0 @@
-models/stable-diffusion-v1-5/* filter=lfs diff=lfs merge=lfs -text
-models/clip-vit-large-patch14/* filter=lfs diff=lfs merge=lfs -text
