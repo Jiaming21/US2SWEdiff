@@ -1,0 +1,13 @@
+Model Files Notice
+
+The following model folders are large and have been separately hosted on the 🤗 Hugging Face Hub:
+
+- stable-diffusion-v1-5 — Contains the core weights and configuration files of Stable Diffusion v1.5, used for image generation.
+- clip-vit-large-patch14 — Contains the pretrained CLIP ViT-L/14 model weights and tokenizer files, used for text-image encoding.
+
+These models are open-source and provided for research and educational purposes only.
+They are used in this project to support inference and visualization, without modification or redistribution for commercial use.
+
+⚠️ Note: To keep the repository lightweight, the model files are not stored in this GitHub repository,
+but are dynamically loaded from the Hugging Face Hub.
+Please ensure you are logged in to Hugging Face before running or downloading the models.

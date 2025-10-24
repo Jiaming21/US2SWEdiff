@@ -41,6 +41,21 @@ Clone the US2SWEdiff repository from GitHub:
     git clone https://github.com/Jiaming21/US2SWEdiff.git
     cd US2SWEdiff
 
+Model Files
+===========
+
+The large model files used in this project (``stable-diffusion-v1-5`` and ``clip-vit-large-patch14``)
+are stored separately on the 🤗 Hugging Face Hub for size and licensing reasons.
+
+For more information about these models and their usage conditions, please refer to:
+
+``models/model_files_notice.txt``
+
+Or visit the model pages directly:
+
+- Stable Diffusion v1.5: https://huggingface.co/Jiaming2143183/stable-diffusion-v1-5
+- CLIP ViT-L/14: https://huggingface.co/Jiaming2143183/clip-vit-large-patch14
+
 Step 3: Run Inference
 ======================
 
