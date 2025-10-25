@@ -425,8 +425,6 @@ The generated inference results will be saved in the following directory:
    <details>
    <summary><h2><strong>Train (click to expand)</strong></h2></summary>
 
-Train
-=======================================
 
 In the following example, we demonstrate the training of the best-performing model proposed in our paper,  
 which uses the **Laplacian edge map** as the conditioning input to generate the corresponding **SWE image**.
