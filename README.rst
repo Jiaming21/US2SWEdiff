@@ -179,9 +179,9 @@ Step 4: Run Inference
 
 After completing the environment setup, cloning the repository, and preparing the dataset (see Step 1-3 above), you can perform inference using either the **Gradio** graphical interface or command line.
 
-.. contents::
-   :local:
-   :depth: 2
+
+
+
 
 .. _option-1-using-gradio-interface:
 
@@ -193,15 +193,12 @@ You can run the Gradio interface in **two ways**:
 1. On a **remote server** with SSH port forwarding.
 2. Directly on your **local computer**.
 
+
+
+
+
+
 .. _run-on-remote-server:
-
-
-
-
-
-
-
-
 
 **Run on Remote Server**
 ~~~~~~~~~~~~~~~~~~~
@@ -235,10 +232,6 @@ You can run the Gradio interface in **two ways**:
 
 
 
-
-
-
-
 .. _run-on-local-computer:
 
 **Run on Local Computer**
@@ -259,8 +252,10 @@ You can run the Gradio interface in **two ways**:
 
     Now open your browser and go to the displayed URL (commonly ``http://127.0.0.1:7860`` or ``http://localhost:7860``) to access the interface.
 
+
+
 **Gradio Interface Usage Instructions**
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
 
 .. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/gradio.png
    :width: 1000
@@ -575,46 +570,6 @@ This file represents the **complete pretrained weights** required for initializi
 
 
 .. _step-7-load-and-train-the-model:
-
-Step 7: Load and Train the Model
-================================
-
-To begin training, ensure that you are using the correct **complete pretrained weights** generated in the previous step.
-
-Set the following path inside your training script:
-
-.. code-block:: python
-
-   resume_path = "[your_path_to_ControlNet-main_folder]/models/stable-diffusion-v1-5/controlnet.ckpt"  # Ensure this uses the correct complete pretrained weights
-
-Then, run the following command to start training:
-
-.. code-block:: bash
-
-   python [your_path_to_ControlNet-main_folder]/ControlNet-main/tutorial_train.py
-
----
-
-**Training Outputs**
-
-After successful execution, the training process will generate the following outputs:
-
-1. **Model Checkpoints (Full Architecture)**  
-   Stored under:  
-   ``[your_path_to_ControlNet-main_folder]/lightning_logs/version_1/checkpoints/``  
-   Example:  
-   ``epoch=129-step=6110.ckpt``
-
-2. **Training Image Logs**  
-   Located at:  
-   ``/root/autodl-tmp/ControlNet-main/image_log/train/``  
-
-   This folder includes four visualization types:
-   - **Conditioning** — Prompt (e.g., “a photo of a benign/malignant breast tumor”)
-   - **Control** — Laplacian edge map
-   - **Reconstruction** — True SWE images
-   - **Samples** — Synthesized SWE images
-
 
 Step 7: Load and Train the Model
 ================================
