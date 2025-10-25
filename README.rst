@@ -606,9 +606,24 @@ Then, run the following command to start training:
 
 
 .. raw:: html
+   <style>
+     /* 让箭头（marker）变大 */
+     details summary::-webkit-details-marker {
+       font-size: 1.6em;
+     }
+
+     /* 让整个 summary 更显眼 */
+     details summary {
+       font-size: 1.6em;
+       font-weight: 700;
+       cursor: pointer;
+       margin-top: 10px;
+       margin-bottom: 10px;
+     }
+   </style>
 
    <details>
-   <summary><h2><strong>Advanced Options for Training (click to expand)</strong></h2></summary>
+   <summary><strong>Advanced Options for Training (click to expand)</strong></summary>
 
    <ul>
      <li><strong>Improved Hint Input Block</strong></li>
