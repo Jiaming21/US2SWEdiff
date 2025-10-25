@@ -52,11 +52,9 @@ Use the following links to quickly navigate through the documentation:
 
 
 
-
 .. raw:: html
 
    <hr>
-
 
 
 
@@ -85,7 +83,6 @@ First install `Anaconda/Miniconda <https://docs.conda.io/en/latest/miniconda.htm
     conda env update -n controlnet -f controlnet.yaml
 
 This will create a conda environment named ``controlnet`` with packages and dependencies installed.
-
 
 
 
@@ -131,7 +128,6 @@ Or visit the model pages directly:
 
 
 
-
 .. _step-3-prepare-the-dataset:
 
 Step 3: Prepare the Dataset
@@ -163,8 +159,6 @@ The dataset directory structure should look like this:
             └── us/
 
 Each subfolder under ``Infer/`` should contain your ultrasound (US) images in standard format (e.g., ``.png``, ``.jpg``, or ``.tif``).
-
-
 
 
 
@@ -287,8 +281,6 @@ In the Gradio interface above, follow the steps below to run the inference:
 
 
 
-
-
 .. _option-2-using-provided-scripts:
 
 Option 2: Using Provided Scripts
@@ -342,9 +334,6 @@ Once completed, the JSON file will be created under the designated ``../infer/me
 
 
 
-
-
-
 .. _step-5-build-the-inference-dataset:
 
 Step 5: Build the Inference Dataset
@@ -365,9 +354,6 @@ Build the dataset for inference using the previously generated ``metadata.json``
       root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/infer/BUSI/metadata.json"
 
 This ensures that the dataset is correctly built based on the metadata file created in **Step 4**.
-
-
-
 
 
 
@@ -423,13 +409,9 @@ The generated inference results will be saved in the following directory:
 
 
 
-
-
 .. raw:: html
 
    <hr>
-
-
 
 
 
