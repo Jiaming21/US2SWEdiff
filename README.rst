@@ -296,7 +296,7 @@ In the following example, we demonstrate the best-performing model proposed in o
 
 .. _step-13-prepare-project-environment:
 
-Step 1–3: Repeat Previous Instructions
+Step 1–3: Prepare Project Environment
 ======================================
 
 Repeat **Step 1-3**Step 2** from the *Inference* section to set up the environment，clone the repository and prepare the dataset for inference.
