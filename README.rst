@@ -19,26 +19,28 @@ Quick Start
 Use the following links to quickly navigate through the documentation:
 
 - **Inference**
-  
+
   - `Option 1: Using Gradio Interface <#option-1-using-gradio-interface>`_
-    - `Run on Remote Server <#run-on-remote-server>`_
-    - `Run on Local Computer <#run-on-local-computer>`_
-    - `Gradio Interface Usage Instructions <#gradio-interface-usage-instructions>`_
-  
+
+    * `Run on Remote Server <#run-on-remote-server>`_
+    * `Run on Local Computer <#run-on-local-computer>`_
+    * `Gradio Interface Usage Instructions <#gradio-interface-usage-instructions>`_
+
   - `Option 2: Using Provided Scripts <#option-2-using-provided-scripts>`_
-    - `Step 1–3: Repeat Previous Instructions <#step-1-3-repeat-previous-instructions>`_
-    - `Step 4: Create the "metadata.json" File <#step-4-create-the-metadatajson-file>`_
-    - `Step 5: Build the Inference Dataset <#step-5-build-the-inference-dataset>`_
-    - `Step 6: Load the ControlNet Model <#step-6-load-the-controlnet-model>`_
+
+    * `Step 1–3: Repeat Previous Instructions <#step-1-3-repeat-previous-instructions>`_
+    * `Step 4: Create the "metadata.json" File <#step-4-create-the-metadatajson-file>`_
+    * `Step 5: Build the Inference Dataset <#step-5-build-the-inference-dataset>`_
+    * `Step 6: Load the ControlNet Model <#step-6-load-the-controlnet-model>`_
 
 - **Train**
-  
-  - `Step 1–2: Prepare Conda Environment & Pull from GitHub Repository <#step-1-2-prepare-conda-environment--pull-from-github-repository>`_
-  - `Step 3: Prepare the Dataset <#step-3-prepare-the-dataset>`_
-  - `Step 4: Create the "metadata.json" File <#step-4-create-the-metadatajson-file-1>`_
-  - `Step 5: Build the Training Dataset <#step-5-build-the-training-dataset>`_
-  - `Step 6: Create Complete Model Weights <#step-6-create-complete-model-weights>`_
-  - `Step 7: Load and Train the Model <#step-7-load-and-train-the-model>`_
+
+  * `Step 1–2: Prepare Conda Environment & Pull from GitHub Repository <#step-1-2-prepare-conda-environment--pull-from-github-repository>`_
+  * `Step 3: Prepare the Dataset <#step-3-prepare-the-dataset>`_
+  * `Step 4: Create the "metadata.json" File <#step-4-create-the-metadatajson-file-1>`_
+  * `Step 5: Build the Training Dataset <#step-5-build-the-training-dataset>`_
+  * `Step 6: Create Complete Model Weights <#step-6-create-complete-model-weights>`_
+  * `Step 7: Load and Train the Model <#step-7-load-and-train-the-model>`_
 
 
 ---
@@ -297,7 +299,7 @@ Training results:
 
 2. **Visualization logs** — stored in ``image_log/train/`` and include:
 
-   - **Conditioning** — prompt  
-   - **Control** — Laplacian edge map  
-   - **Reconstruction** — true SWE images  
+   - **Conditioning** — prompt
+   - **Control** — Laplacian edge map
+   - **Reconstruction** — true SWE images
    - **Samples** — synthesized SWE images
