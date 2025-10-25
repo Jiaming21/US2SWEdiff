@@ -23,6 +23,7 @@ Use the following links to quickly navigate through the documentation:
     * `Step 1: Prepare Conda Environment <#step-1-prepare-conda-environment>`_
     * `Step 2: Pull from GitHub Repository <#step-2-pull-from-github-repository>`_
     * `Step 3: Prepare the Dataset <#step-3-prepare-the-dataset>`_
+    * `Step 4: Run Inference <#step-4-run-inference>`_
     
 	* `Option 1: Using Gradio Interface <#option-1-using-gradio-interface>`_
 
@@ -46,9 +47,20 @@ Use the following links to quickly navigate through the documentation:
     * `Step 6: Create Complete Model Weights <#step-6-create-complete-model-weights>`_
     * `Step 7: Load and Train the Model <#step-7-load-and-train-the-model>`_
 
+
+
+
+
+
+
 .. raw:: html
 
    <hr>
+
+
+
+
+
 
 .. _inference:
 
@@ -73,6 +85,12 @@ First install `Anaconda/Miniconda <https://docs.conda.io/en/latest/miniconda.htm
     conda env update -n controlnet -f controlnet.yaml
 
 This will create a conda environment named ``controlnet`` with packages and dependencies installed.
+
+
+
+
+
+
 
 
 .. _step-2-pull-from-github-repository:
@@ -108,10 +126,20 @@ Or visit the model pages directly:
    </details>
 
 
+
+
+
+
+
+
 .. _step-3-prepare-the-dataset:
 
 Step 3: Prepare the Dataset
 ===================================
+
+*(This step is only required if you wish to apply the model infer your own dataset. For this project, all data are already well organized when you clone the repository.)*
+
+The dataset directory structure should look like this:
 
 .. code-block:: text
 
@@ -134,57 +162,133 @@ Step 3: Prepare the Dataset
             ├── laplacian/
             └── us/
 
+Each subfolder under ``Infer/`` should contain your ultrasound (US) images in standard format (e.g., ``.png``, ``.jpg``, or ``.tif``).
+
+
+
+
+
+
+
+
+
+.. _step-4-run-inference:
+
+Step 4: Run Inference
+===================================
+
+After completing the environment setup, cloning the repository, and preparing the dataset (see Step 1-3 above), you can perform inference using either the **Gradio** graphical interface or command line.
+
+.. contents::
+   :local:
+   :depth: 2
 
 .. _option-1-using-gradio-interface:
 
 Option 1: Using Gradio Interface
 --------------------------------
 
+You can run the Gradio interface in **two ways**:
+
+1. On a **remote server** with SSH port forwarding.
+2. Directly on your **local computer**.
+
 .. _run-on-remote-server:
 
+
+
+
+
+
+
+
+
 **Run on Remote Server**
-~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: bash
+    On the *remote server* (Linux terminal):
 
-    cd ControlNet-main/gradio
-    python app.py
+    .. code-block:: bash
 
-Then, on your local computer:
+       cd ControlNet-main/gradio
+       python app.py
 
-.. code-block:: bash
+    On your *local machine*, establish SSH port forwarding:
 
-    ssh -CNg -L 6006:127.0.0.1:6006 root@connect.nmb1.seetacloud.com -p <PORT>
+    - **Windows**: open *PowerShell*
+    - **macOS / Linux**: open *Terminal*
 
-Open your browser at ``http://localhost:6006``
+    .. code-block:: bash
+
+       ssh -CNg -L 6006:127.0.0.1:6006 root@connect.nmb1.seetacloud.com -p <PORT>
+
+    .. note::
+
+       - On the first connection, if prompted with *yes/no*, type ``yes``.  
+       - Enter the server password (it will not be displayed while typing or pasting — this is normal).  
+       - If you see ``Permission denied``, the password was likely incorrect. Please retry.
+
+    After connecting, open your browser at: ``http://localhost:6006`` to access the Gradio interface.
+
+
+
+
+
+
+
+
 
 
 .. _run-on-local-computer:
 
 **Run on Local Computer**
-~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: bash
+    On your *local terminal* (PowerShell for Windows, or Terminal for macOS/Linux):
 
-    cd ControlNet-main/gradio
-    python app.py
+    .. code-block:: bash
 
+       cd ControlNet-main/gradio
+       python app.py
 
-.. _gradio-interface-usage-instructions:
+    Once the Gradio server has started, the terminal will display something like:
+
+    .. code-block:: text
+
+       Running on local URL:  http://127.0.0.1:7860/
+
+    Now open your browser and go to the displayed URL (commonly ``http://127.0.0.1:7860`` or ``http://localhost:7860``) to access the interface.
 
 **Gradio Interface Usage Instructions**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 .. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/gradio.png
    :width: 1000
 
-1. Upload your input image  
-2. Enter a text prompt  
-3. Click **Generate**
+1. **Upload an image**: Click the top-left window to upload your input image.
+2. **Enter the prompt**: In the *prompt* field, type your description, e.g.:  
+   ``a photo of a benign breast tumor`` or ``a photo of a malignant breast tumor``.
+3. **Generate**: Click the **Generate** button. After a short wait, the right-hand panel will display 
+   the extracted **Laplacian edge** and the generated **SWE images**.
 
-Advanced options:
-- **Images** — number of outputs  
-- **Laplacian ksize** — edge kernel size
+.. raw:: html
+
+   <details>
+   <summary><strong>Advanced Options (click to expand)</strong></summary>
+
+**Images** — the number of images to generate.  
+**Laplacian ksize (odd)** — the kernel size used by the Laplacian edge detector (odd integers only: 1, 3, 5, 7, …).  
+Smaller values give finer, sharper edges; larger values give thicker, smoother edges (with more noise suppression).
+
+.. raw:: html
+
+   </details>
+
+
+
+
+
+
 
 
 .. _option-2-using-provided-scripts:
@@ -192,31 +296,55 @@ Advanced options:
 Option 2: Using Provided Scripts
 --------------------------------
 
+In the following example, we demonstrate the best-performing model proposed in our paper — the *"Laplacian edge map → SWE image"* approach — applied to the public **BUSI** dataset for inference.
+
 .. _step-13-prepare-project-environment:
 
 Step 1–3: Repeat Previous Instructions
 ======================================
-Repeat Step 1–3 from *Inference*.
+
+Repeat **Step 1-3**Step 2** from the *Inference* section to set up the environment，clone the repository and prepare the dataset for inference.
 
 
 .. _step-4-create-the-metadatajson-file:
 
-Step 4: Create the "metadata.json" File
-=======================================
+Step 4: Create the ``metadata.json`` File
+=========================================
 
-Modify ``data.py``:
-
-.. code-block:: python
-
-    imagepath = "../infer/BUSI/*"
-    condpath  = "../infer/laplacian/"
-    root      = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/infer/BUSI/"
-
-Run:
+First, navigate to the following directory:
 
 .. code-block:: bash
 
-    python data.py
+   cd [your_path_to_ControlNet-main_folder]/data/tools/
+
+Under this directory, there is a script named ``data.py``.  
+Modify this file to ensure that the paths are correctly specified.
+
+The following lines should be checked and updated accordingly:
+
+.. code-block:: python
+
+   imagepath = "../infer/BUSI/*"  # Since we are performing inference, this can point to any image folder
+   condpath = "../infer/laplacian/"  # Path to your condition images (here we use Laplacian edge maps)
+
+   root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/infer/BUSI/"  # Path to your dataset root directory
+
+   with open("../infer/metadata.json", 'w') as f:  # This will be your newly created metadata JSON file
+
+After verifying all paths, run the following command to generate the metadata file:
+
+.. code-block:: bash
+
+   python data.py
+
+Once completed, the JSON file will be created under the designated ``../infer/metadata.json`` folder.
+
+
+
+
+
+
+
 
 
 .. _step-5-build-the-inference-dataset:
@@ -224,11 +352,29 @@ Run:
 Step 5: Build the Inference Dataset
 ===================================
 
-Edit ``tutorial_dataset.py``:
+Build the dataset for inference using the previously generated ``metadata.json`` file.
 
-.. code-block:: python
+1. Open the following script:
 
-    root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/infer/BUSI/metadata.json"
+   .. code-block:: text
+
+      [your_path_to_ControlNet-main_folder]/tutorial_dataset.py
+
+2. Locate the ``MyDataset`` class and modify the ``root`` variable as shown below:
+
+   .. code-block:: python
+
+      root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/infer/BUSI/metadata.json"
+
+This ensures that the dataset is correctly built based on the metadata file created in **Step 4**.
+
+
+
+
+
+
+
+
 
 
 .. _step-6-load-the-controlnet-model:
@@ -236,40 +382,88 @@ Edit ``tutorial_dataset.py``:
 Step 6: Load the ControlNet Model
 =================================
 
+Load the ControlNet model (refer to ``cldm/cldm.py``) with your previously trained weights.
+
+Your model checkpoints are stored under the following directory:
+
+.. code-block:: text
+
+   [your_path_to_ControlNet-main_folder]/lightning_logs/
+
+For example, if you wish to use the following trained checkpoint:
+
+.. code-block:: text
+
+   [your_path_to_ControlNet-main_folder]/lightning_logs/version_1/checkpoints/epoch=129-step=6110.ckpt
+
+You need to open the following script:
+
+.. code-block:: text
+
+   [your_path_to_ControlNet-main_folder]/tutorial_inference.py
+
+Then, modify the following variables within the script to match your paths:
+
 .. code-block:: python
 
-    CKPT_PATH = "[your_path_to_ControlNet-main_folder]/lightning_logs/version_1/checkpoints/epoch=129-step=6110.ckpt"
-    RESULT_DIR = "[your_path_to_ControlNet-main_folder]/generated_results/"
+   CKPT_PATH = "[your_path_to_ControlNet-main_folder]/lightning_logs/version_1/checkpoints/epoch=129-step=6110.ckpt"
+   RESULT_DIR = "[your_path_to_ControlNet-main_folder]/generated_results/"
 
-Run:
+After saving the modifications, run the script:
 
 .. code-block:: bash
 
-    python [your_path_to_ControlNet-main_folder]/tutorial_inference.py
+   python [your_path_to_ControlNet-main_folder]/tutorial_inference.py
 
-Output directory:  
-``[your_path_to_ControlNet-main_folder]/generated_results/version_0/``
+The generated inference results will be saved in the following directory:
+
+.. code-block:: text
+
+   [your_path_to_ControlNet-main_folder]/generated_results/version_0/
+
+
+
+
+
+
 
 .. raw:: html
 
    <hr>
 
+
+
+
+
+
+
 .. _train:
 
 Train
-=============
+=======================================
+
+In the following example, we demonstrate the training of the best-performing model proposed in our paper, which uses the **Laplacian edge map** as the conditioning input to generate the corresponding **SWE image**.
+
+
 
 .. _step-12-prepare-project-environment:
 
 Step 1–2: Prepare Project Environment
-=================================================================
+=======================================
+
 Repeat Step 1–2 from *Inference* to prepare conda environment and  pull from GitHub repository.
 
 
 .. _step-3-prepare-the-dataset-train:
 
+
+
 Step 3: Prepare the Dataset
-===========================
+=======================================
+
+*(This step is only required if you wish to train the model on your own dataset. For this project, all data are already well organized when you clone the repository.)*
+
+The dataset directory structure should look like this:
 
 .. code-block:: text
 
@@ -277,8 +471,11 @@ Step 3: Prepare the Dataset
     └── Train/
         ├── us/
         ├── canny/
-        ├── laplacian/
-        └── swe/
+        ├── laplacian/ （used condition images folder for this example）
+        └── swe/ （used target images folder for this example）
+
+Each subfolder under ``Train/`` should contain your corresponding images in standard formats (e.g., ``.png``, ``.jpg``, or ``.tif``).
+
 
 
 .. _step-4-create-the-metadatajson-file-train:
@@ -286,19 +483,39 @@ Step 3: Prepare the Dataset
 Step 4: Create the "metadata.json" File
 =======================================
 
-Modify ``data.py``:
-
-.. code-block:: python
-
-    imagepath = "../train/swe/"
-    condpath  = "../train/laplacian/"
-    root      = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/train/"
-
-Run:
+Navigate to the following directory:
 
 .. code-block:: bash
 
-    python data.py
+   cd [your_path_to_ControlNet-main_folder]/data/tools/
+
+Within this directory, you will find the script ``data.py``.  
+Modify this file to ensure that all paths are correctly set to your dataset locations.
+
+The key sections of the code that need to be updated are as follows:
+
+.. code-block:: python
+
+   imagepath = "../train/swe/"        # Make sure this points to the target images (i.e., SWE images) folder
+   condpath = "../train/laplacian/"   # Make sure this points to your condition images (Laplacian edge maps)
+
+   root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/train/"  # Ensure this points to the correct data path
+
+   with open("../train/metadata.json", 'w') as f:  # This will be your newly created metadata file
+
+After confirming that all paths are correct, run the following command:
+
+.. code-block:: bash
+
+   python data.py
+
+This will create the ``metadata.json`` file under the specified directory:
+
+.. code-block:: text
+
+   ../train/metadata.json
+
+
 
 
 .. _step-5-build-the-training-dataset:
@@ -306,11 +523,24 @@ Run:
 Step 5: Build the Training Dataset
 ==================================
 
-Edit ``tutorial_dataset.py``:
+Build the dataset for training using the previously created ``metadata.json`` file.
+
+Open the following script:
+
+.. code-block:: text
+
+   [your_path_to_ControlNet-main_folder]/tutorial_dataset.py
+
+Within the script, locate the definition of the ``MyDataset`` class and modify the ``root`` variable as follows:
 
 .. code-block:: python
 
-    root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/train/metadata.json"
+   root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/train/metadata.json"
+
+This ensures that your dataset loader correctly reads the training data defined in the ``metadata.json`` file.
+
+
+
 
 
 .. _step-6-create-complete-model-weights:
@@ -318,13 +548,30 @@ Edit ``tutorial_dataset.py``:
 Step 6: Create Complete Model Weights
 =====================================
 
+In this step, you will create the complete model weights (i.e., ``controlnet.ckpt = SD + ControlNet``)  
+for the ControlNet model (refer to ``cldm/cldm.py``).
+
+Here we use ``stable-diffusion-v1-5/v1-5-pruned.ckpt`` as the pretrained Stable Diffusion weights  
+to generate the combined ControlNet checkpoint.
+
+Run the following command:
+
 .. code-block:: bash
 
-    python [your_path_to_ControlNet-main_folder]/ControlNet-main/tool_add_control.py \
-      [your_path_to_ControlNet-main_folder]/ControlNet-main/models/stable-diffusion-v1-5/v1-5-pruned.ckpt \
-      [your_path_to_ControlNet-main_folder]/ControlNet-main/models/stable-diffusion-v1-5/controlnet.ckpt
+   python [your_path_to_ControlNet-main_folder]/ControlNet-main/tool_add_control.py \
+       [your_path_to_ControlNet-main_folder]/ControlNet-main/models/stable-diffusion-v1-5/v1-5-pruned.ckpt \   # SD-only weights
+       [your_path_to_ControlNet-main_folder]/ControlNet-main/models/stable-diffusion-v1-5/controlnet.ckpt       # Output combined SD + ControlNet weights
 
-This creates ``controlnet.ckpt`` (SD + ControlNet combined weights).
+After running the script, a file named ``controlnet.ckpt`` will be created under:
+
+.. code-block:: text
+
+   [your_path_to_ControlNet-main_folder]/ControlNet-main/models/stable-diffusion-v1-5/
+
+This file represents the **complete pretrained weights** required for initializing ControlNet training.
+
+
+
 
 
 .. _step-7-load-and-train-the-model:
@@ -332,23 +579,87 @@ This creates ``controlnet.ckpt`` (SD + ControlNet combined weights).
 Step 7: Load and Train the Model
 ================================
 
+To begin training, ensure that you are using the correct **complete pretrained weights** generated in the previous step.
+
+Set the following path inside your training script:
+
 .. code-block:: python
 
-    resume_path = "[your_path_to_ControlNet-main_folder]/models/stable-diffusion-v1-5/controlnet.ckpt"
+   resume_path = "[your_path_to_ControlNet-main_folder]/models/stable-diffusion-v1-5/controlnet.ckpt"  # Ensure this uses the correct complete pretrained weights
 
-Run:
+Then, run the following command to start training:
 
 .. code-block:: bash
 
-    python [your_path_to_ControlNet-main_folder]/ControlNet-main/tutorial_train.py
+   python [your_path_to_ControlNet-main_folder]/ControlNet-main/tutorial_train.py
+
+---
+
+**Training Outputs**
+
+After successful execution, the training process will generate the following outputs:
+
+1. **Model Checkpoints (Full Architecture)**  
+   Stored under:  
+   ``[your_path_to_ControlNet-main_folder]/lightning_logs/version_1/checkpoints/``  
+   Example:  
+   ``epoch=129-step=6110.ckpt``
+
+2. **Training Image Logs**  
+   Located at:  
+   ``/root/autodl-tmp/ControlNet-main/image_log/train/``  
+
+   This folder includes four visualization types:
+   - **Conditioning** — Prompt (e.g., “a photo of a benign/malignant breast tumor”)
+   - **Control** — Laplacian edge map
+   - **Reconstruction** — True SWE images
+   - **Samples** — Synthesized SWE images
 
 
-Training results:
------------------
+Step 7: Load and Train the Model
+================================
 
-1. **Model checkpoints** — saved in ``lightning_logs/version_1/checkpoints/``  
-2. **Visualization logs** — stored in ``image_log/train/`` and include:
-   - Conditioning (prompt)
-   - Control (Laplacian edge map)
-   - Reconstruction (true SWE images)
-   - Samples (synthesized SWE images)
+To begin training, ensure that you are using the correct **complete pretrained weights** generated in the previous step.
+
+Set the following path inside your training script:
+
+.. code-block:: python
+
+   resume_path = "[your_path_to_ControlNet-main_folder]/models/stable-diffusion-v1-5/controlnet.ckpt"  # Ensure this uses the correct complete pretrained weights
+
+Then, run the following command to start training:
+
+.. code-block:: bash
+
+   python [your_path_to_ControlNet-main_folder]/ControlNet-main/tutorial_train.py
+
+
+.. raw:: html
+
+   <details>
+   <summary><strong>Training Outputs (click to expand)</strong></summary>
+   <br>
+
+   <p>After successful execution, the training process will generate the following outputs:</p>
+
+   <ol>
+     <li><strong>Model Checkpoints (Full Architecture)</strong><br>
+         Stored under:<br>
+         <code>[your_path_to_ControlNet-main_folder]/lightning_logs/version_1/checkpoints/</code><br>
+         Example:<br>
+         <code>epoch=129-step=6110.ckpt</code>
+     </li>
+     <br>
+     <li><strong>Training Image Logs</strong><br>
+         Located at:<br>
+         <code>/root/autodl-tmp/ControlNet-main/image_log/train/</code><br>
+         <p>This folder includes four visualization types:</p>
+         <ul>
+           <li><strong>Conditioning</strong> — Prompt (e.g., “a photo of a benign/malignant breast tumor”)</li>
+           <li><strong>Control</strong> — Laplacian edge map</li>
+           <li><strong>Reconstruction</strong> — True SWE images</li>
+           <li><strong>Samples</strong> — Synthesized SWE images</li>
+         </ul>
+     </li>
+   </ol>
+   </details>
