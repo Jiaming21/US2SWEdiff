@@ -20,27 +20,27 @@ Use the following links to quickly navigate through the documentation:
 
 - **Inference**
 
-  - `Option 1: Using Gradio Interface <#option-1>`_
+  - :ref:`Option 1: Using Gradio Interface <option-1>`
+  
+    * :ref:`Run on Remote Server <run-on-remote-server>`
+    * :ref:`Run on Local Computer <run-on-local-computer>`
+    * :ref:`Gradio Interface Usage Instructions <gradio-interface-usage-instructions>`
 
-    * `Run on Remote Server <#run-on-remote-server>`_
-    * `Run on Local Computer <#run-on-local-computer>`_
-    * `Gradio Interface Usage Instructions <#gradio-interface-usage-instructions>`_
-
-  - `Option 2: Using Provided Scripts <#option-2>`_
-
-    * `Step 1–3: Repeat Previous Instructions <#inference-step-1-3>`_
-    * `Step 4: Create the "metadata.json" File <#inference-step-4>`_
-    * `Step 5: Build the Inference Dataset <#inference-step-5>`_
-    * `Step 6: Load the ControlNet Model <#inference-step-6>`_
+  - :ref:`Option 2: Using Provided Scripts <option-2>`
+  
+    * :ref:`Step 1–3: Repeat Previous Instructions <inference-step-1-3>`
+    * :ref:`Step 4: Create the "metadata.json" File <inference-step-4>`
+    * :ref:`Step 5: Build the Inference Dataset <inference-step-5>`
+    * :ref:`Step 6: Load the ControlNet Model <inference-step-6>`
 
 - **Train**
 
-  * `Step 1–2: Prepare Conda Environment & Pull from GitHub Repository <#train-step-1-2>`_
-  * `Step 3: Prepare the Dataset <#train-step-3>`_
-  * `Step 4: Create the "metadata.json" File <#train-step-4>`_
-  * `Step 5: Build the Training Dataset <#train-step-5>`_
-  * `Step 6: Create Complete Model Weights <#train-step-6>`_
-  * `Step 7: Load and Train the Model <#train-step-7>`_
+  * :ref:`Step 1–2: Prepare Conda Environment & Pull from GitHub Repository <train-step-1-2>`
+  * :ref:`Step 3: Prepare the Dataset <train-step-3>`
+  * :ref:`Step 4: Create the "metadata.json" File <train-step-4>`
+  * :ref:`Step 5: Build the Training Dataset <train-step-5>`
+  * :ref:`Step 6: Create Complete Model Weights <train-step-6>`
+  * :ref:`Step 7: Load and Train the Model <train-step-7>`
 
 
 ---
@@ -336,7 +336,7 @@ Training results:
 
 2. **Visualization logs** — stored in ``image_log/train/`` and include:
 
-   - **Conditioning** — prompt
-   - **Control** — Laplacian edge map
-   - **Reconstruction** — true SWE images
+   - **Conditioning** — prompt  
+   - **Control** — Laplacian edge map  
+   - **Reconstruction** — true SWE images  
    - **Samples** — synthesized SWE images
