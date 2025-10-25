@@ -18,7 +18,7 @@ Quick Start
 
 Use the following links to quickly navigate through the documentation:
 
-* `**Inference** <#inference>`_
+* `Inference <#inference>`_
 
     * `Step 1: Prepare Conda Environment <#step-1-prepare-conda-environment>`_
     * `Step 2: Pull from GitHub Repository <#step-2-pull-from-github-repository>`_
@@ -37,7 +37,7 @@ Use the following links to quickly navigate through the documentation:
     		* `Step 5: Build the Inference Dataset <#step-5-build-the-inference-dataset>`_
     		* `Step 6: Load the ControlNet Model <#step-6-load-the-controlnet-model>`_
 
-* `**Train** <#train>`_
+* `Train <#train>`_
 
   * `Step 1–2: Prepare Conda Environment & Pull from GitHub Repository <#step-1-2-prepare-conda-environment--pull-from-github-repository>`_
   * `Step 3: Prepare the Dataset <#step-3-prepare-the-dataset>`_
