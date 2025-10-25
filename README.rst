@@ -478,7 +478,7 @@ Each subfolder under ``Train/`` should contain your corresponding images in stan
 
 .. _step-4-create-the-metadatajson-file-train:
 
-Step 4: Create the "metadata.json" File
+Step 4: Create the ``metadata.json`` File
 =======================================
 
 Navigate to the following directory:
