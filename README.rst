@@ -46,7 +46,9 @@ Use the following links to quickly navigate through the documentation:
     * `Step 6: Create Complete Model Weights <#step-6-create-complete-model-weights>`_
     * `Step 7: Load and Train the Model <#step-7-load-and-train-the-model>`_
 
----
+.. raw:: html
+
+   <hr>
 
 .. _inference:
 
@@ -228,8 +230,9 @@ Run:
 Output directory:  
 ``[your_path_to_ControlNet-main_folder]/generated_results/version_0/``
 
+.. raw:: html
 
----
+   <hr>
 
 .. _train:
 
