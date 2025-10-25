@@ -39,12 +39,12 @@ Use the following links to quickly navigate through the documentation:
 
 * `Train <#train>`_
 
-  * `Step 1–2: Prepare Project Environment <#step-12-prepare-project-environment>`_
-  * `Step 3: Prepare the Dataset <#step-3-prepare-the-dataset>`_
-  * `Step 4: Create the "metadata.json" File <#step-4-create-the-metadatajson-file-train>`_
-  * `Step 5: Build the Training Dataset <#step-5-build-the-training-dataset>`_
-  * `Step 6: Create Complete Model Weights <#step-6-create-complete-model-weights>`_
-  * `Step 7: Load and Train the Model <#step-7-load-and-train-the-model>`_
+    * `Step 1–2: Prepare Project Environment <#step-12-prepare-project-environment>`_
+    * `Step 3: Prepare the Dataset <#step-3-prepare-the-dataset>`_
+    * `Step 4: Create the "metadata.json" File <#step-4-create-the-metadatajson-file-train>`_
+    * `Step 5: Build the Training Dataset <#step-5-build-the-training-dataset>`_
+    * `Step 6: Create Complete Model Weights <#step-6-create-complete-model-weights>`_
+    * `Step 7: Load and Train the Model <#step-7-load-and-train-the-model>`_
 
 ---
 
