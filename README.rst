@@ -434,10 +434,11 @@ The generated inference results will be saved in the following directory:
 
 
 
+<details>
 
 .. _train:
 
-Train
+<summary>Train</summary>
 =======================================
 
 In the following example, we demonstrate the training of the best-performing model proposed in our paper, which uses the **Laplacian edge map** as the conditioning input to generate the corresponding **SWE image**.
@@ -621,3 +622,23 @@ Then, run the following command to start training:
      </li>
    </ol>
    </details>
+
+</details>
+
+
+
+
+.. raw:: html
+
+   <hr>
+
+
+
+
+
+Advance Options for training:
+================================
+1. Improved Hint Input Block
+2. Unlocked Decoder
+3. Classifier-free Guidance
+
