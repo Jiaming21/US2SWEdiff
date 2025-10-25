@@ -434,15 +434,20 @@ The generated inference results will be saved in the following directory:
 
 
 
-<details>
 
 .. _train:
 
-<summary>Train</summary>
+.. raw:: html
+
+   <details open>
+   <summary><strong>Train (click to expand)</strong></summary>
+   <br>
+
+Train
 =======================================
 
-In the following example, we demonstrate the training of the best-performing model proposed in our paper, which uses the **Laplacian edge map** as the conditioning input to generate the corresponding **SWE image**.
-
+In the following example, we demonstrate the training of the best-performing model proposed in our paper,  
+which uses the **Laplacian edge map** as the conditioning input to generate the corresponding **SWE image**.
 
 
 .. _step-12-prepare-project-environment:
@@ -450,17 +455,16 @@ In the following example, we demonstrate the training of the best-performing mod
 Step 1–2: Prepare Project Environment
 =======================================
 
-Repeat Step 1–2 from *Inference* to prepare conda environment and  pull from GitHub repository.
+Repeat Step 1–2 from *Inference* to prepare conda environment and pull from GitHub repository.
 
 
 .. _step-3-prepare-the-dataset-train:
 
-
-
 Step 3: Prepare the Dataset
 =======================================
 
-*(This step is only required if you wish to train the model on your own dataset. For this project, all data are already well organized when you clone the repository.)*
+*(This step is only required if you wish to train the model on your own dataset.  
+For this project, all data are already well organized when you clone the repository.)*
 
 The dataset directory structure should look like this:
 
@@ -474,7 +478,6 @@ The dataset directory structure should look like this:
         └── swe/ （used target images folder for this example）
 
 Each subfolder under ``Train/`` should contain your corresponding images in standard formats (e.g., ``.png``, ``.jpg``, or ``.tif``).
-
 
 
 .. _step-4-create-the-metadatajson-file-train:
@@ -515,8 +518,6 @@ This will create the ``metadata.json`` file under the specified directory:
    ../train/metadata.json
 
 
-
-
 .. _step-5-build-the-training-dataset:
 
 Step 5: Build the Training Dataset
@@ -537,9 +538,6 @@ Within the script, locate the definition of the ``MyDataset`` class and modify t
    root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/train/metadata.json"
 
 This ensures that your dataset loader correctly reads the training data defined in the ``metadata.json`` file.
-
-
-
 
 
 .. _step-6-create-complete-model-weights:
@@ -568,9 +566,6 @@ After running the script, a file named ``controlnet.ckpt`` will be created under
    [your_path_to_ControlNet-main_folder]/ControlNet-main/models/stable-diffusion-v1-5/
 
 This file represents the **complete pretrained weights** required for initializing ControlNet training.
-
-
-
 
 
 .. _step-7-load-and-train-the-model:
@@ -623,15 +618,9 @@ Then, run the following command to start training:
    </ol>
    </details>
 
-</details>
-
-
-
-
 .. raw:: html
 
-   <hr>
-
+   </details>
 
 
 
