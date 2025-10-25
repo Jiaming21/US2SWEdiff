@@ -414,7 +414,6 @@ The generated inference results will be saved in the following directory:
 
 
 
-
 .. raw:: html
 
    <hr>
@@ -423,10 +422,9 @@ The generated inference results will be saved in the following directory:
 
 
 
-.. _train:
-
 .. raw:: html
 
+   <a id="train"></a>
    <details>
    <summary><h2><strong>Train (click to expand)</strong></h2></summary>
 
