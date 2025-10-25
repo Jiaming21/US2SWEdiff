@@ -32,7 +32,7 @@ Use the following links to quickly navigate through the documentation:
 
         * `Option 2: Using Provided Scripts <#option-2-using-provided-scripts>`_
 
-    		* `Step 1–3: Repeat Previous Instructions <#step-13-repeat-previous-instructions>`_
+    		* `Step 1–3: Repeat Previous Instructions <#step-1-3-repeat-previous-instructions>`_
     		* `Step 4: Create the "metadata.json" File <#step-4-create-the-metadatajson-file>`_
     		* `Step 5: Build the Inference Dataset <#step-5-build-the-inference-dataset>`_
     		* `Step 6: Load the ControlNet Model <#step-6-load-the-controlnet-model>`_
@@ -170,7 +170,7 @@ Advanced options:
 Option 2: Using Provided Scripts
 --------------------------------
 
-.. _step-13-repeat-previous-instructions:
+.. _step-1-3-repeat-previous-instructions:
 
 Step 1–3: Repeat Previous Instructions
 ======================================
