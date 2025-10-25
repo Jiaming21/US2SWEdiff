@@ -1,4 +1,4 @@
-=========
+========
 US2SWEdiff
 =========
 US2SWEdiff is a tool which generates SWE images corresponding to US images using diffusion model.
@@ -36,7 +36,7 @@ Use the following links to quickly navigate through the documentation:
 - **Train**
 
   * `Step 1–2: Prepare Conda Environment & Pull from GitHub Repository <#step-1-2-prepare-conda-environment--pull-from-github-repository>`_
-  * `Step 3: Prepare the Dataset <#step-3-prepare-the-dataset-train>`_
+  * `Step 3: Prepare the Dataset <#step-3-prepare-the-dataset>`_
   * `Step 4: Create the "metadata.json" File <#step-4-create-the-metadatajson-file-train>`_
   * `Step 5: Build the Training Dataset <#step-5-build-the-training-dataset>`_
   * `Step 6: Create Complete Model Weights <#step-6-create-complete-model-weights>`_
