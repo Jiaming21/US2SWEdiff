@@ -47,6 +47,7 @@ Use the following links to quickly navigate through the documentation:
     * `Step 6: Create Complete Model Weights <#step-6-create-complete-model-weights>`_
     * `Step 7: Load and Train the Model <#step-7-load-and-train-the-model>`_
 
+* `Advanced Options for Training <#advanced_options_for_training>`_
 
 
 
@@ -604,26 +605,12 @@ Then, run the following command to start training:
 
 
 
+.. _advanced_options_for_training:
 
 .. raw:: html
-   <style>
-     /* 让箭头（marker）变大 */
-     details summary::-webkit-details-marker {
-       font-size: 1.6em;
-     }
-
-     /* 让整个 summary 更显眼 */
-     details summary {
-       font-size: 1.6em;
-       font-weight: 700;
-       cursor: pointer;
-       margin-top: 10px;
-       margin-bottom: 10px;
-     }
-   </style>
 
    <details>
-   <summary><strong>Advanced Options for Training (click to expand)</strong></summary>
+   <summary><h2><strong>Advanced Options for Training (click to expand)</strong></h2></summary>
 
    <ul>
      <li><strong>Improved Hint Input Block</strong></li>
