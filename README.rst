@@ -440,7 +440,7 @@ The generated inference results will be saved in the following directory:
 .. raw:: html
 
    <details>
-   <summary><strong>Train (click to expand)</strong></summary>
+   <summary><h2><strong>Train (click to expand)</strong></h2></summary>
 
 Train
 =======================================
@@ -626,7 +626,7 @@ Then, run the following command to start training:
 .. raw:: html
 
    <details>
-   <summary><strong>Advanced Options for Training (click to expand)</strong></summary>
+   <summary><h2><strong>Advanced Options for Training (click to expand)</strong></h2></summary>
 
    <ul>
      <li><strong>Improved Hint Input Block</strong></li>
