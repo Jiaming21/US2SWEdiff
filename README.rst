@@ -272,7 +272,6 @@ In the Gradio interface above, follow the steps below to run the inference:
 
    <details>
    <summary><strong>Advanced Options (click to expand)</strong></summary>
-   <br>
 
    <ul>
      <li><strong>Images</strong> — the number of images to generate.</li>
