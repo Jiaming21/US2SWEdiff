@@ -608,10 +608,10 @@ Then, run the following command to start training:
 
 
 
-.. _advanced-options-for-training:
 
 .. raw:: html
 
+   <a id="advanced-options-for-training"></a>
    <details>
    <summary><h2><strong>Advanced Options for Training (click to expand)</strong></h2></summary>
 
