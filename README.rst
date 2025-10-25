@@ -12,13 +12,39 @@ Overview
 .. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/model.jpg
    :width: 1000
 
+
+Quick Start
+=============
+
+Use the following links to quickly navigate through the documentation:
+
+- `Inference <#inference>`_
+  - `Option 1: Using Gradio Interface <#option-1-using-gradio-interface>`_
+    - `Run on Remote Server <#run-on-remote-server>`_
+    - `Run on Local Computer <#run-on-local-computer>`_
+    - `Gradio Interface Usage Instructions <#gradio-interface-usage-instructions>`_
+  - `Option 2: Using Provided Scripts <#option-2-using-provided-scripts>`_
+    - `Step 1–3: Repeat Previous Instructions <#step-1-3-repeat-previous-instructions>`_
+    - `Step 4: Create the "metadata.json" File <#step-4-create-your-metadatajson-file>`_
+    - `Step 5: Build the Inference Dataset <#step-5-build-the-dataset-for-inferrence-by-using-the-metadatajson-file>`_
+    - `Step 6: Load the ControlNet Model <#step-6-load-your-controlnet-model-refer-to-cldmcldmpy-with-previously-trained-weights>`_
+
+- `Train <#train>`_
+  - `Step 1–2: Prepare Conda Environment & Pull from GitHub Repository <#step-1-2-prepare-conda-environment--pull-from-github-repository>`_
+  - `Step 3: Prepare the Dataset <#step-3-prepare-the-dataset>`_
+  - `Step 4: Create the "metadata.json" File <#step-4-create-your-metadatajson-file>`_
+  - `Step 5: Build the Training Dataset <#step-5-build-the-dataset-for-training-by-using-the-metadatajson-file>`_
+  - `Step 6: Create Complete Model Weights <#step-6-make-complete-model-parameters>`_
+  - `Step 7: Load and Train the Model <#step-7-load-and-train-the-model>`_
+
+---
+
 Inference
 =============
 
 Step 1: Prepare Conda Environment
 ======================
-First install `Anaconda/Miniconda <https://docs.conda.io/en/latest/miniconda.html>`_.  
-Then, create environment and install packages and dependencies using the following command (here CUDA 11.3):
+First install `Anaconda/Miniconda <https://docs.conda.io/en/latest/miniconda.html>`_. Then, create environment and install packages and dependencies using following command (here CUDA 11.3):
 
 .. code-block:: bash
 
@@ -54,13 +80,14 @@ For more information about these models and their usage conditions, please refer
 
 Or visit the model pages directly:
 
-- Stable Diffusion v1.5: https://huggingface.co/Jiaming2143183/stable-diffusion-v1-5
+- Stable Diffusion v1.5: https://huggingface.co/Jiaming2143183/stable-diffusion-v1-5  
 - CLIP ViT-L/14: https://huggingface.co/Jiaming2143183/clip-vit-large-patch14
+
 
 Step 3: Prepare the Dataset
 ===========================
 
-*(This step is only required if you wish to apply the model to your own dataset.  
+*(This step is only required if you wish to apply the model infer your own dataset.  
 For this project, all data are already well organized when you clone the repository.)*
 
 The dataset directory structure should look like this:
@@ -82,8 +109,11 @@ The dataset directory structure should look like this:
         │   ├── laplacian/
         │   └── us/
         └── your_dataset/
+            ├── canny/
+            ├── laplacian/
+            └── us/
 
-Each subfolder under ``infer/`` should contain your ultrasound (US) images in standard format (e.g., ``.png``, ``.jpg``, or ``.tif``).
+Each subfolder under ``Infer/`` should contain your ultrasound (US) images in standard format (e.g., ``.png``, ``.jpg``, or ``.tif``).
 
 Step 4: Run Inference
 ======================
@@ -115,35 +145,20 @@ You can run the Gradio interface in **two ways**:
 
     On your *local machine*, establish SSH port forwarding:
 
+    - **Windows**: open *PowerShell*
+    - **macOS / Linux**: open *Terminal*
+
     .. code-block:: bash
 
        ssh -CNg -L 6006:127.0.0.1:6006 root@connect.nmb1.seetacloud.com -p <PORT>
 
-    .. note::
-
-       - On the first connection, if prompted with *yes/no*, type ``yes``.  
-       - Enter the server password (it will not be displayed while typing or pasting — this is normal).  
-       - If you see ``Permission denied``, the password was likely incorrect. Please retry.
-
-    After connecting, open your browser at: ``http://localhost:6006`` to access the Gradio interface.
-
 **Run on Local Computer**
 ~~~~~~~~~~~~~~~~~~~~
-
-    On your *local terminal* (PowerShell for Windows, or Terminal for macOS/Linux):
 
     .. code-block:: bash
 
        cd ControlNet-main/gradio
        python app.py
-
-    Once the Gradio server has started, the terminal will display something like:
-
-    .. code-block:: text
-
-       Running on local URL:  http://127.0.0.1:7860/
-
-    Now open your browser and go to the displayed URL (commonly ``http://127.0.0.1:7860`` or ``http://localhost:7860``).
 
 **Gradio Interface Usage Instructions**
 ~~~~~~~~~~~~~~~~~~
@@ -151,96 +166,40 @@ You can run the Gradio interface in **two ways**:
 .. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/gradio.png
    :width: 1000
 
-1. **Upload an image**: Click the top-left window to upload your input image.  
-2. **Enter the prompt**: In the *prompt* field, type your description, e.g.:  
-   ``a photo of a benign breast tumor`` or ``a photo of a malignant breast tumor``.  
-3. **Generate**: Click **Generate**. The right-hand panel will display  
-   the extracted **Laplacian edge** and the generated **SWE image**.
+1. **Upload an image**  
+2. **Enter the prompt** (e.g., ``a photo of a benign breast tumor``)  
+3. **Generate** to produce SWE images.  
 
 **Advanced options:**
-    - **Images** — the number of images to generate.
-    - **Laplacian ksize (odd)** — kernel size for the Laplacian edge detector (odd integers only: 1, 3, 5, 7, …).
+    - **Images** — number of generated images  
+    - **Laplacian ksize (odd)** — kernel size of edge detector  
 
 Option 2: Using Provided Scripts
 ------------------------------------
 
-In the following example, we demonstrate inference using the best-performing model  
-(*Laplacian edge map → SWE image*) on the **BUSI** dataset.
-
 Step 1–3: Repeat Previous Instructions
 ===========================
 
-Repeat **Step 1–3** from the *Inference* section to set up the environment, clone the repository, and prepare the dataset.
+Repeat **Step 1–3** from the *Inference* section to set up the environment, clone the repository and prepare the dataset.
 
 Step 4: Create the "metadata.json" File
 ===========================
 
-.. code-block:: bash
-
-    cd [your_path_to_ControlNet-main_folder]/data/tools/
-
-Modify the ``data.py`` file under this directory and ensure the paths are correct:
-
-.. code-block:: python
-
-    imagepath = "../infer/BUSI/*"  # arbitrary, since inference doesn't require label images
-    condpath = "../infer/laplacian/"  # path to condition images (e.g., Laplacian edges)
-    root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/infer/BUSI/"  # dataset root
-
-    with open("../infer/metadata.json", 'w') as f:  # output JSON file name
-
-After verifying the settings, run:
-
-.. code-block:: bash
-
-    python data.py
-
-This will create ``metadata.json`` under the ``../infer/`` folder.
+*(Modify `data.py` under `[your_path_to_ControlNet-main_folder]/data/tools/` as shown.)*
 
 Step 5: Build the Inference Dataset
 ===========================
 
-Open ``[your_path_to_ControlNet-main_folder]/tutorial_dataset.py``  
-and modify:
-
-.. code-block:: python
-
-    root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/infer/BUSI/metadata.json"
+*(Modify `tutorial_dataset.py` to use your generated metadata file.)*
 
 Step 6: Load the ControlNet Model
 ===========================
 
-Your trained model checkpoints reside under ``ControlNet-main/lightning_logs/``.  
-For example:
+*(Edit `tutorial_inference.py` to set correct checkpoint and result paths, then run inference.)*
 
-.. code-block:: text
-
-    [your_path]/lightning_logs/version_1/checkpoints/epoch=129-step=6110.ckpt
-
-Open ``[your_path_to_ControlNet-main_folder]/tutorial_inference.py``  
-and modify the following lines:
-
-.. code-block:: python
-
-    CKPT_PATH = "[your_path]/lightning_logs/version_1/checkpoints/epoch=129-step=6110.ckpt"
-    RESULT_DIR = "[your_path]/generated_results/"
-
-Then run:
-
-.. code-block:: bash
-
-    python [your_path_to_ControlNet-main_folder]/tutorial_inference.py
-
-Results will be saved under:
-
-.. code-block:: text
-
-    [your_path_to_ControlNet-main_folder]/generated_results/version_0/
 
 Train
 =============
-
-In this section, we train the best-performing model (*Laplacian edge map → SWE image*).
 
 Step 1–2: Prepare Conda Environment & Pull from GitHub Repository
 ===========================
@@ -250,66 +209,29 @@ Repeat **Step 1** and **Step 2** from the *Inference* section.
 Step 3: Prepare the Dataset
 ===========================
 
-*(This step is only required if you wish to train the model on your own dataset.  
-For this project, all data are already well organized when you clone the repository.)*
-
-.. code-block:: text
-
-    Breast-img/
-    └── Train/
-        ├── us/
-        ├── canny/
-        ├── laplacian/   # used as condition images
-        └── swe/         # used as target images
+*(Same logic as in Inference but for the training dataset.)*
 
 Step 4: Create the "metadata.json" File
 ===========================
 
-.. code-block:: bash
-
-    cd [your_path_to_ControlNet-main_folder]/data/tools/
-
-Modify ``data.py``:
-
-.. code-block:: python
-
-    imagepath = "../train/swe/"          # path to target images
-    condpath = "../train/laplacian/"     # path to condition images
-    root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/train/"
-    with open("../train/metadata.json", 'w') as f:
-
-Then run:
-
-.. code-block:: bash
-
-    python data.py
+*(Modify and run `data.py` under `data/tools/` for training.)*
 
 Step 5: Build the Training Dataset
 ===========================
 
-Open ``[your_path_to_ControlNet-main_folder]/tutorial_dataset.py`` and modify:
-
-.. code-block:: python
-
-    root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/train/metadata.json"
+*(Edit `tutorial_dataset.py` for training mode.)*
 
 Step 6: Create Complete Model Weights
 ===========================
 
-Combine Stable Diffusion + ControlNet weights:
-
-.. code-block:: bash
-
-    python [your_path_to_ControlNet-main_folder]/ControlNet-main/tool_add_control.py \
-    [your_path]/models/stable-diffusion-v1-5/v1-5-pruned.ckpt \
-    [your_path]/models/stable-diffusion-v1-5/controlnet.ckpt
+*(Run `tool_add_control.py` to combine SD + ControlNet parameters.)*
 
 Step 7: Load and Train the Model
 ===========================
 
-.. code-block:: python
+.. code-block:: bash
 
-    resume_path = '[your_path]/models/stable-diffusion-v1-5/controlnet.ckpt'
+    resume_path = '[your_path_to_ControlNet-main_folder]/models/stable-diffusion-v1-5/controlnet.ckpt'
 
 Train with:
 
@@ -317,21 +239,13 @@ Train with:
 
     python [your_path_to_ControlNet-main_folder]/ControlNet-main/tutorial_train.py
 
-**Training results:**
-
-1. **Model checkpoints** — saved under:
-   ``lightning_logs/version_1/checkpoints/``  
-2. **Visualization logs** — stored in  
-   ``image_log/train/`` and include:
+Training results:
+-----------------
+1. **Model checkpoints** — saved under ``lightning_logs/version_1/checkpoints/``  
+2. **Visualization logs** — stored in ``image_log/train/`` and include:  
    - Conditioning (prompt)  
    - Control (Laplacian edge map)  
    - Reconstruction (true SWE images)  
    - Samples (synthesized SWE images)
 
-Advanced Options for Training
-=============
-1. Improved Hint Block  
-2. Unlocked Decoder  
-3. Classifier-free Guidance
-
-
+---
