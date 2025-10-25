@@ -260,6 +260,8 @@ You can run the Gradio interface in **two ways**:
 .. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/gradio.png
    :width: 1000
 
+In the Gradio interface above, follow the steps below to run the inference:
+
 1. **Upload an image**: Click the top-left window to upload your input image.
 2. **Enter the prompt**: In the *prompt* field, type your description, e.g.:  
    ``a photo of a benign breast tumor`` or ``a photo of a malignant breast tumor``.
@@ -272,9 +274,12 @@ You can run the Gradio interface in **two ways**:
    <summary><strong>Advanced Options (click to expand)</strong></summary>
    <br>
 
-   <p><strong>Images</strong> — the number of images to generate.</p>
-   <p><strong>Laplacian ksize (odd)</strong> — the kernel size used by the Laplacian edge detector (odd integers only: 1, 3, 5, 7, …).<br>
-   Smaller values give finer, sharper edges; larger values give thicker, smoother edges (with more noise suppression).</p>
+   <ul>
+     <li><strong>Images</strong> — the number of images to generate.</li>
+     <li><strong>Laplacian ksize (odd)</strong> — the kernel size used by the Laplacian edge detector (odd integers only: 1, 3, 5, 7, …).
+       <br>Smaller values give finer, sharper edges; larger values give thicker, smoother edges (with more noise suppression).
+     </li>
+   </ul>
 
    </details>
 
