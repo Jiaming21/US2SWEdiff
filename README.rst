@@ -59,39 +59,59 @@ Inference
 
 Step 1: Prepare Conda Environment
 =================================
-First install `Anaconda/Miniconda <https://docs.conda.io/en/latest/miniconda.html>`_.
+First install `Anaconda/Miniconda <https://docs.conda.io/en/latest/miniconda.html>`_. Then, create environment and install packages and dependencies using following command (here CUDA 11.3):
 
 .. code-block:: bash
 
+    # Create a new environment named "controlnet" with Python 3.10
     conda create -n controlnet python=3.10
+
+    # Activate the environment
     conda activate controlnet
+
+    # Install dependencies from controlnet.yaml (environment reproduction)
     conda env update -n controlnet -f controlnet.yaml
+
+This will create a conda environment named ``controlnet`` with packages and dependencies installed.
 
 
 .. _step-2-pull-from-github-repository:
 
 Step 2: Pull from GitHub Repository
 ===================================
+Clone the US2SWEdiff repository from GitHub:
 
 .. code-block:: bash
 
     git clone https://github.com/Jiaming21/US2SWEdiff.git
     cd US2SWEdiff
 
+.. raw:: html
 
-Model Files
-===========
+   <details>
+   <summary><strong>Model Files</strong> (click to expand)</summary>
 
-Model files are hosted on 🤗 Hugging Face due to size and license constraints.
+The large model files used in this project (``stable-diffusion-v1-5`` and ``clip-vit-large-patch14``)
+are stored separately on the 🤗 Hugging Face Hub for size and licensing reasons.
 
-- https://huggingface.co/Jiaming2143183/stable-diffusion-v1-5
-- https://huggingface.co/Jiaming2143183/clip-vit-large-patch14
+For more information about these models and their usage conditions, please refer to:
+
+``models/model_files_notice.txt``
+
+Or visit the model pages directly:
+
+- Stable Diffusion v1.5: https://huggingface.co/Jiaming2143183/stable-diffusion-v1-5  
+- CLIP ViT-L/14: https://huggingface.co/Jiaming2143183/clip-vit-large-patch14
+
+.. raw:: html
+
+   </details>
 
 
 .. _step-3-prepare-the-dataset:
 
 Step 3: Prepare the Dataset
-===========================
+===================================
 
 .. code-block:: text
 
