@@ -47,7 +47,7 @@ Use the following links to quickly navigate through the documentation:
     * `Step 6: Create Complete Model Weights <#step-6-create-complete-model-weights>`_
     * `Step 7: Load and Train the Model <#step-7-load-and-train-the-model>`_
 
-* `Advanced Options for Training <#advanced_options_for_training>`_
+* `Advanced Options for Training <#advanced-options-for-training>`_
 
 
 
@@ -603,7 +603,7 @@ Then, run the following command to start training:
 
 
 
-.. _advanced_options_for_training:
+.. _advanced-options-for-training:
 
 .. raw:: html
 
