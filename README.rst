@@ -439,7 +439,7 @@ The generated inference results will be saved in the following directory:
 
 .. raw:: html
 
-   <details open>
+   <details>
    <summary><strong>Train (click to expand)</strong></summary>
 
 Train
