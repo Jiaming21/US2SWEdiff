@@ -39,7 +39,7 @@ Use the following links to quickly navigate through the documentation:
 
 * `Train <#train>`_
 
-  * `Step 1–2: Prepare Conda Environment & Pull from GitHub Repository <#step-12-prepare-conda-environment-pull-from-github-repository>`_
+  * `Step 1–2: Prepare Conda Environment & Pull from GitHub Repository <#step-12-prepare-project-environment>`_
   * `Step 3: Prepare the Dataset <#step-3-prepare-the-dataset>`_
   * `Step 4: Create the "metadata.json" File <#step-4-create-the-metadatajson-file-train>`_
   * `Step 5: Build the Training Dataset <#step-5-build-the-training-dataset>`_
@@ -236,11 +236,11 @@ Output directory:
 Train
 =============
 
-.. _step-12-prepare-conda-environment-pull-from-github-repository:
+.. _step-12-prepare-project-environment:
 
-Step 1–2: Prepare Conda Environment & Pull from GitHub Repository
+Step 1–2: Prepare Project Environment
 =================================================================
-Repeat Step 1–2 from *Inference*.
+Repeat Step 1–2 from *Inference* to prepare conda environment and  pull from GitHub repository.
 
 
 .. _step-3-prepare-the-dataset-train:
