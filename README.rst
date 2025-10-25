@@ -270,12 +270,11 @@ You can run the Gradio interface in **two ways**:
 
    <details>
    <summary><strong>Advanced Options (click to expand)</strong></summary>
+   <br>
 
-**Images** — the number of images to generate.  
-**Laplacian ksize (odd)** — the kernel size used by the Laplacian edge detector (odd integers only: 1, 3, 5, 7, …).  
-Smaller values give finer, sharper edges; larger values give thicker, smoother edges (with more noise suppression).
-
-.. raw:: html
+   <p><strong>Images</strong> — the number of images to generate.</p>
+   <p><strong>Laplacian ksize (odd)</strong> — the kernel size used by the Laplacian edge detector (odd integers only: 1, 3, 5, 7, …).<br>
+   Smaller values give finer, sharper edges; larger values give thicker, smoother edges (with more noise suppression).</p>
 
    </details>
 
