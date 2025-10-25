@@ -280,6 +280,11 @@ In the Gradio interface above, follow the steps below to run the inference:
 
 
 
+.. raw:: html
+
+   <hr>
+
+
 
 
 .. _option-2-using-provided-scripts:
