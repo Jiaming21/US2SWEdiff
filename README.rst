@@ -293,9 +293,11 @@ Train with:
 Training results:
 -----------------
 
-1. **Model checkpoints** — stored under ``lightning_logs/version_1/checkpoints/``  
+1. **Model checkpoints** — stored under ``lightning_logs/version_1/checkpoints/``
+
 2. **Visualization logs** — stored in ``image_log/train/`` and include:
-   - Conditioning (prompt)
-   - Control (Laplacian edge map)
-   - Reconstruction (true SWE images)
-   - Samples (synthesized SWE images)
+
+   - **Conditioning** — prompt  
+   - **Control** — Laplacian edge map  
+   - **Reconstruction** — true SWE images  
+   - **Samples** — synthesized SWE images
