@@ -20,28 +20,27 @@ Use the following links to quickly navigate through the documentation:
 
 - **Inference**
 
-  - :ref:`Option 1: Using Gradio Interface <option-1>`
-  
-    * :ref:`Run on Remote Server <run-on-remote-server>`
-    * :ref:`Run on Local Computer <run-on-local-computer>`
-    * :ref:`Gradio Interface Usage Instructions <gradio-interface-usage-instructions>`
+  - `Option 1: Using Gradio Interface <#option-1-using-gradio-interface>`_
 
-  - :ref:`Option 2: Using Provided Scripts <option-2>`
-  
-    * :ref:`Step 1–3: Repeat Previous Instructions <inference-step-1-3>`
-    * :ref:`Step 4: Create the "metadata.json" File <inference-step-4>`
-    * :ref:`Step 5: Build the Inference Dataset <inference-step-5>`
-    * :ref:`Step 6: Load the ControlNet Model <inference-step-6>`
+    * `Run on Remote Server <#run-on-remote-server>`_
+    * `Run on Local Computer <#run-on-local-computer>`_
+    * `Gradio Interface Usage Instructions <#gradio-interface-usage-instructions>`_
+
+  - `Option 2: Using Provided Scripts <#option-2-using-provided-scripts>`_
+
+    * `Step 1–3: Repeat Previous Instructions <#step-1-3-repeat-previous-instructions>`_
+    * `Step 4: Create the "metadata.json" File <#step-4-create-the-metadatajson-file>`_
+    * `Step 5: Build the Inference Dataset <#step-5-build-the-inference-dataset>`_
+    * `Step 6: Load the ControlNet Model <#step-6-load-the-controlnet-model>`_
 
 - **Train**
 
-  * :ref:`Step 1–2: Prepare Conda Environment & Pull from GitHub Repository <train-step-1-2>`
-  * :ref:`Step 3: Prepare the Dataset <train-step-3>`
-  * :ref:`Step 4: Create the "metadata.json" File <train-step-4>`
-  * :ref:`Step 5: Build the Training Dataset <train-step-5>`
-  * :ref:`Step 6: Create Complete Model Weights <train-step-6>`
-  * :ref:`Step 7: Load and Train the Model <train-step-7>`
-
+  * `Step 1–2: Prepare Conda Environment & Pull from GitHub Repository <#step-1-2-prepare-conda-environment--pull-from-github-repository>`_
+  * `Step 3: Prepare the Dataset <#step-3-prepare-the-dataset>`_
+  * `Step 4: Create the "metadata.json" File <#step-4-create-the-metadatajson-file-train>`_
+  * `Step 5: Build the Training Dataset <#step-5-build-the-training-dataset>`_
+  * `Step 6: Create Complete Model Weights <#step-6-create-complete-model-weights>`_
+  * `Step 7: Load and Train the Model <#step-7-load-and-train-the-model>`_
 
 ---
 
@@ -50,13 +49,11 @@ Use the following links to quickly navigate through the documentation:
 Inference
 =============
 
-.. _inference-step-1:
+.. _step-1-prepare-conda-environment:
 
 Step 1: Prepare Conda Environment
-======================
+=================================
 First install `Anaconda/Miniconda <https://docs.conda.io/en/latest/miniconda.html>`_.
-
-Then, create environment and install dependencies:
 
 .. code-block:: bash
 
@@ -65,10 +62,10 @@ Then, create environment and install dependencies:
     conda env update -n controlnet -f controlnet.yaml
 
 
-.. _inference-step-2:
+.. _step-2-pull-from-github-repository:
 
 Step 2: Pull from GitHub Repository
-======================
+===================================
 
 .. code-block:: bash
 
@@ -79,19 +76,16 @@ Step 2: Pull from GitHub Repository
 Model Files
 ===========
 
-Model files are stored on 🤗 Hugging Face due to size/licensing reasons.  
-See ``models/model_files_notice.txt`` or visit:
+Model files are hosted on 🤗 Hugging Face due to size and license constraints.
 
 - https://huggingface.co/Jiaming2143183/stable-diffusion-v1-5
 - https://huggingface.co/Jiaming2143183/clip-vit-large-patch14
 
 
-.. _inference-step-3:
+.. _step-3-prepare-the-dataset:
 
 Step 3: Prepare the Dataset
 ===========================
-
-Dataset directory structure:
 
 .. code-block:: text
 
@@ -115,34 +109,34 @@ Dataset directory structure:
             └── us/
 
 
-.. _option-1:
+.. _option-1-using-gradio-interface:
 
 Option 1: Using Gradio Interface
-------------------------------------
+--------------------------------
 
 .. _run-on-remote-server:
 
 **Run on Remote Server**
-~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
     cd ControlNet-main/gradio
     python app.py
 
-Then on your local machine:
+Then, on your local computer:
 
 .. code-block:: bash
 
     ssh -CNg -L 6006:127.0.0.1:6006 root@connect.nmb1.seetacloud.com -p <PORT>
 
-Open: ``http://localhost:6006``
+Open your browser at ``http://localhost:6006``
 
 
 .. _run-on-local-computer:
 
 **Run on Local Computer**
-~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
@@ -153,39 +147,38 @@ Open: ``http://localhost:6006``
 .. _gradio-interface-usage-instructions:
 
 **Gradio Interface Usage Instructions**
-~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: https://raw.githubusercontent.com/Jiaming21/US2SWEdiff/main/github_img/gradio.png
    :width: 1000
 
-1. Upload an image  
-2. Enter a prompt  
+1. Upload your input image  
+2. Enter a text prompt  
 3. Click **Generate**
 
 Advanced options:
-- Images — number of generated results  
-- Laplacian ksize (odd) — kernel size for edge extraction
+- **Images** — number of outputs  
+- **Laplacian ksize** — edge kernel size
 
 
-.. _option-2:
+.. _option-2-using-provided-scripts:
 
 Option 2: Using Provided Scripts
-------------------------------------
+--------------------------------
 
-.. _inference-step-1-3:
+.. _step-1-3-repeat-previous-instructions:
 
 Step 1–3: Repeat Previous Instructions
-===========================
+======================================
+Repeat Step 1–3 from *Inference*.
 
-Repeat **Step 1–3** from *Inference*.
 
-
-.. _inference-step-4:
+.. _step-4-create-the-metadatajson-file:
 
 Step 4: Create the "metadata.json" File
-===========================
+=======================================
 
-Modify ``data.py`` under ``data/tools/``:
+Modify ``data.py``:
 
 .. code-block:: python
 
@@ -200,24 +193,22 @@ Run:
     python data.py
 
 
-.. _inference-step-5:
+.. _step-5-build-the-inference-dataset:
 
 Step 5: Build the Inference Dataset
-===========================
+===================================
 
-Edit ``[your_path_to_ControlNet-main_folder]/tutorial_dataset.py``:
+Edit ``tutorial_dataset.py``:
 
 .. code-block:: python
 
     root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/infer/BUSI/metadata.json"
 
 
-.. _inference-step-6:
+.. _step-6-load-the-controlnet-model:
 
 Step 6: Load the ControlNet Model
-===========================
-
-Example:
+=================================
 
 .. code-block:: python
 
@@ -230,7 +221,7 @@ Run:
 
     python [your_path_to_ControlNet-main_folder]/tutorial_inference.py
 
-Results will be saved in:
+Output directory:  
 ``[your_path_to_ControlNet-main_folder]/generated_results/version_0/``
 
 
@@ -241,14 +232,14 @@ Results will be saved in:
 Train
 =============
 
-.. _train-step-1-2:
+.. _step-1-2-prepare-conda-environment--pull-from-github-repository:
 
 Step 1–2: Prepare Conda Environment & Pull from GitHub Repository
-===========================
-Repeat **Step 1** and **Step 2** from *Inference*.
+=================================================================
+Repeat Step 1–2 from *Inference*.
 
 
-.. _train-step-3:
+.. _step-3-prepare-the-dataset-train:
 
 Step 3: Prepare the Dataset
 ===========================
@@ -263,12 +254,12 @@ Step 3: Prepare the Dataset
         └── swe/
 
 
-.. _train-step-4:
+.. _step-4-create-the-metadatajson-file-train:
 
 Step 4: Create the "metadata.json" File
-===========================
+=======================================
 
-Modify ``data.py`` under ``data/tools/``:
+Modify ``data.py``:
 
 .. code-block:: python
 
@@ -282,27 +273,23 @@ Run:
 
     python data.py
 
-This creates ``../train/metadata.json``.
 
-
-.. _train-step-5:
+.. _step-5-build-the-training-dataset:
 
 Step 5: Build the Training Dataset
-===========================
+==================================
 
-Edit ``[your_path_to_ControlNet-main_folder]/tutorial_dataset.py``:
+Edit ``tutorial_dataset.py``:
 
 .. code-block:: python
 
     root = "[your_path_to_ControlNet-main_folder]/data/BreastCA-img/train/metadata.json"
 
 
-.. _train-step-6:
+.. _step-6-create-complete-model-weights:
 
 Step 6: Create Complete Model Weights
-===========================
-
-Run:
+=====================================
 
 .. code-block:: bash
 
@@ -313,16 +300,16 @@ Run:
 This creates ``controlnet.ckpt`` (SD + ControlNet combined weights).
 
 
-.. _train-step-7:
+.. _step-7-load-and-train-the-model:
 
 Step 7: Load and Train the Model
-===========================
+================================
 
 .. code-block:: python
 
     resume_path = "[your_path_to_ControlNet-main_folder]/models/stable-diffusion-v1-5/controlnet.ckpt"
 
-Train with:
+Run:
 
 .. code-block:: bash
 
@@ -332,11 +319,9 @@ Train with:
 Training results:
 -----------------
 
-1. **Model checkpoints** — stored under ``lightning_logs/version_1/checkpoints/``
-
+1. **Model checkpoints** — saved in ``lightning_logs/version_1/checkpoints/``  
 2. **Visualization logs** — stored in ``image_log/train/`` and include:
-
-   - **Conditioning** — prompt  
-   - **Control** — Laplacian edge map  
-   - **Reconstruction** — true SWE images  
-   - **Samples** — synthesized SWE images
+   - Conditioning (prompt)
+   - Control (Laplacian edge map)
+   - Reconstruction (true SWE images)
+   - Samples (synthesized SWE images)
