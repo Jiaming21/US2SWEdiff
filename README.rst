@@ -441,7 +441,6 @@ The generated inference results will be saved in the following directory:
 
    <details open>
    <summary><strong>Train (click to expand)</strong></summary>
-   <br>
 
 Train
 =======================================
@@ -592,7 +591,6 @@ Then, run the following command to start training:
 
    <details>
    <summary><strong>Training Outputs (click to expand)</strong></summary>
-   <br>
 
    <p>After successful execution, the training process will generate the following outputs:</p>
 
@@ -625,9 +623,15 @@ Then, run the following command to start training:
 
 
 
-Advance Options for training:
-================================
-1. Improved Hint Input Block
-2. Unlocked Decoder
-3. Classifier-free Guidance
+.. raw:: html
 
+   <details>
+   <summary><strong>Advanced Options for Training (click to expand)</strong></summary>
+
+   <ul>
+     <li><strong>Improved Hint Input Block</strong></li>
+     <li><strong>Unlocked Decoder</strong></li>
+     <li><strong>Classifier-free Guidance</strong></li>
+   </ul>
+
+   </details>
