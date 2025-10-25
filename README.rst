@@ -38,7 +38,7 @@ Use the following links to quickly navigate through the documentation:
     		* `Step 5: Build the Inference Dataset <#step-5-build-the-inference-dataset>`_
     		* `Step 6: Load the ControlNet Model <#step-6-load-the-controlnet-model>`_
 
-* `Train <#train2>`_
+* `Train <#train>`_
 
     * `Step 1–2: Prepare Project Environment <#step-12-prepare-project-environment>`_
     * `Step 3: Prepare the Dataset <#step-3-prepare-the-dataset>`_
@@ -424,7 +424,7 @@ The generated inference results will be saved in the following directory:
 
 .. raw:: html
 
-   <a id="train2"></a>
+   <a id="train"></a>
    <details>
    <summary><h2><strong>Train (click to expand)</strong></h2></summary>
 
