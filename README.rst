@@ -188,9 +188,6 @@ The dataset directory structure should look like this:
 
 Each subfolder under ``Infer/`` should contain your ultrasound (US) images in standard format (e.g., ``.png``, ``.jpg``, or ``.tif``).
 
-
-
-
 .. raw:: html
 
    <details>
@@ -233,8 +230,6 @@ target = target.astype(np.float32) / 127.5 - 1.0
    <p>This ensures that all training and logged images are saved in your specified image format.</p>
 
    </details>
-
-
 
 
 
