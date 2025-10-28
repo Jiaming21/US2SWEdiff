@@ -126,31 +126,21 @@ Clone the US2SWEdiff repository from GitHub:
 
    <hr>
 
-   <p><strong>Setup steps</strong></p>
-   <ol>
-     <li>
-       After downloading, drag the <code>stable-diffusion-v1-5</code> and
-       <code>clip-vit-large-patch14</code> folders into the <code>models/</code> directory.
-     </li>
-   </ol>
+   <p><strong>After downloading</strong>, drag the <code>stable-diffusion-v1-5</code> and
+   <code>clip-vit-large-patch14</code> folders into the <code>models/</code> directory.</p>
 
-   <p><strong>Verify script paths and weights</strong></p>
-   <p>
-     You should also check the following script point to the correct model weights.
-   </p>
+   <h4>Verify script paths and weights</h4>
 
-   <ol>
-     <li>
-       <code>[your_path_to_ControlNet-main_folder]/ldm/modules/encoders/modules.py</code><br>
-       In class <code>FrozenCLIPEmbedder</code> in the <code>__init__</code> function, change
-       the version to
-       <code>[your_path_to_ControlNet-main_folder]/models/clip-vit-large-patch14</code>.
-     </li>
-   </ol>
+   <p>You should also check the following script point to the correct model weights.</p>
+
+   <pre><code>[your_path_to_ControlNet-main_folder]/ldm/modules/encoders/modules.py
+   In class FrozenCLIPEmbedder in the "__init__" function, change the version to
+   [your_path_to_ControlNet-main_folder]/models/clip-vit-large-patch14
+   </code></pre>
 
    <p>
-     As for the <code>stable-diffusion-v1-5</code> folder, the <code>v1-5-pruned.ckpt</code>
-     file inside will be used to create complete weights with
+     As for the <code>stable-diffusion-v1-5</code> folder, the
+     <code>v1-5-pruned.ckpt</code> file inside will be used to create complete weights with
      <code>[your_path_to_ControlNet-main_folder]/ControlNet-main/tool_add_control.py</code>
      in the Training section's “Step 6: Create Complete Model Weights”.
    </p>
