@@ -188,48 +188,51 @@ The dataset directory structure should look like this:
 
 Each subfolder under ``Infer/`` should contain your ultrasound (US) images in standard format (e.g., ``.png``, ``.jpg``, or ``.tif``).
 
-.. raw:: html
 
-   <details>
-   <summary><strong>Adjustment if not "PNG, RGB, 8bit" combination (click to expand)</strong></summary>
+**Adjustment if not "PNG, RGB, 8bit" combination**
 
-   <ul>
-     <li><strong>If your images are not in PNG, RGB, 8-bit format</strong>, you need to modify the following code in  
-       <code>[your_path_to_ControlNet-main_folder]/tutorial_dataset.py</code>.
-     </li>
+If your images are not in **PNG, RGB, 8-bit format**, you need to modify the following code in  
+``[your_path_to_ControlNet-main_folder]/tutorial_dataset.py``.
 
-     <li><strong>Different image format:</strong><br>
-       Change the image loading mode by editing these two lines:
-       <pre><code>source = Image.open(source_filename).convert('RGB')
-target = Image.open(target_filename).convert('RGB')</code></pre>
-     </li>
 
-     <li><strong>Different bit depth:</strong><br>
-       Modify the Mask–Image Pair processing section:
-       <pre><code>source = np.array(source).astype(np.uint8)
-target = np.array(target).astype(np.uint8)
+**1. Different image format**
 
-source = source.astype(np.float32) / 255.0
-target = target.astype(np.float32) / 127.5 - 1.0</code></pre>
-     </li>
+Change the image loading mode by editing these two lines:
 
-     <li><strong>Different image size:</strong><br>
-       No problem — the <code>transform</code> function will automatically resize images to <strong>256×256</strong>.
-     </li>
+.. code-block:: python
 
-     <li><strong>If your images use another format:</strong><br>
-       To ensure all training images are saved in the correct format, modify the following two functions in  
-       <code>[your_path_to_ControlNet-main_folder]/cldm/logger.py</code>:
-       <ul>
-         <li><code>log_local</code></li>
-         <li><code>log_img</code></li>
-       </ul>
-     </li>
-   </ul>
+    source = Image.open(source_filename).convert('RGB')
+    target = Image.open(target_filename).convert('RGB')
 
-   <p>This ensures that all training and logged images are stored in your specified format.</p>
 
-   </details>
+**2. Different bit depth**
+
+Modify the Mask–Image Pair processing section:
+
+.. code-block:: python
+
+    source = np.array(source).astype(np.uint8)
+    target = np.array(target).astype(np.uint8)
+
+    source = source.astype(np.float32) / 255.0
+    target = target.astype(np.float32) / 127.5 - 1.0
+
+
+**3. Different image size**
+
+No problem — the ``transform`` function will automatically resize images to **256×256**.
+
+
+**Plus**
+
+If your images use another format, to ensure all training images are saved in the correct format, modify the following two functions in  
+``[your_path_to_ControlNet-main_folder]/cldm/logger.py``:
+
+- ``log_local``
+- ``log_img``
+
+
+
 
 
 .. _step-4-run-inference:
