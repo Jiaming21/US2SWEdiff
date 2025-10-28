@@ -326,7 +326,7 @@ In the following example, we demonstrate the best-performing model proposed in o
 Step 1–3: Prepare Project Environment
 ======================================
 
-Repeat **Step 1-3**Step 2** from the *Inference* section to set up the environment，clone the repository and prepare the dataset for inference.
+Repeat **Step 1-3** from the *Inference* section to set up the environment，clone the repository and prepare the dataset for inference.
 
 
 .. _step-4-create-the-metadatajson-file:
