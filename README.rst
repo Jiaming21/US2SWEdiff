@@ -227,9 +227,7 @@ Modify the Mask–Image Pair processing section:
 No problem — the ``transform`` function will automatically resize images to **256×256**.
 
 
-**Plus**
-
-If your images use another format, to ensure all training images are saved in the correct format, modify the ``log_local`` and ``log_img`` functions in ``[your_path_to_ControlNet-main_folder]/cldm/logger.py``.
+**Notes: **If your images use another format, to ensure all training images are also saved in the correct format, modify the ``log_local`` and ``log_img`` functions in ``[your_path_to_ControlNet-main_folder]/cldm/logger.py``.
 
 .. raw:: html
 
