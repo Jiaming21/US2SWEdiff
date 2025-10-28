@@ -232,7 +232,6 @@ target = target.astype(np.float32) / 127.5 - 1.0
    </details>
 
 
-
 .. _step-4-run-inference:
 
 Step 4: Run Inference
