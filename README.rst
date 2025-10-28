@@ -90,11 +90,11 @@ This will create a conda environment named ``controlnet`` with packages and depe
 
 
 
-
 .. _step-2-pull-from-github-repository:
 
 Step 2: Pull from GitHub Repository
 ===================================
+
 Clone the US2SWEdiff repository from GitHub:
 
 .. code-block:: bash
@@ -107,19 +107,53 @@ Clone the US2SWEdiff repository from GitHub:
    <details>
    <summary><strong>Model Files</strong> (click to expand)</summary>
 
-The large model files used in this project (``stable-diffusion-v1-5`` and ``clip-vit-large-patch14``)
-are stored separately on the 🤗 Hugging Face Hub for size and licensing reasons.
+   <p>
+     The large model files used in this project (<code>stable-diffusion-v1-5</code> and
+     <code>clip-vit-large-patch14</code>) are stored separately on the 🤗 Hugging Face Hub
+     for size and licensing reasons.
+   </p>
 
-For more information about these models and their usage conditions, please refer to:
+   <p>
+     For more information about these models and their usage conditions, please refer to:
+     <code>models/model_files_notice.txt</code>
+   </p>
 
-``models/model_files_notice.txt``
+   <p>Or visit the model pages directly:</p>
+   <ul>
+     <li>Stable Diffusion v1.5: <a href="https://huggingface.co/Jiaming2143183/stable-diffusion-v1-5">https://huggingface.co/Jiaming2143183/stable-diffusion-v1-5</a></li>
+     <li>CLIP ViT-L/14: <a href="https://huggingface.co/Jiaming2143183/clip-vit-large-patch14">https://huggingface.co/Jiaming2143183/clip-vit-large-patch14</a></li>
+   </ul>
 
-Or visit the model pages directly:
+   <hr>
 
-- Stable Diffusion v1.5: https://huggingface.co/Jiaming2143183/stable-diffusion-v1-5  
-- CLIP ViT-L/14: https://huggingface.co/Jiaming2143183/clip-vit-large-patch14
+   <p><strong>Setup steps</strong></p>
+   <ol>
+     <li>
+       After downloading, drag the <code>stable-diffusion-v1-5</code> and
+       <code>clip-vit-large-patch14</code> folders into the <code>models/</code> directory.
+     </li>
+   </ol>
 
-.. raw:: html
+   <p><strong>Verify script paths and weights</strong></p>
+   <p>
+     You should also check the following script point to the correct model weights.
+   </p>
+
+   <ol>
+     <li>
+       <code>[your_path_to_ControlNet-main_folder]/ldm/modules/encoders/modules.py</code><br>
+       In class <code>FrozenCLIPEmbedder</code> in the <code>__init__</code> function, change
+       the version to
+       <code>[your_path_to_ControlNet-main_folder]/models/clip-vit-large-patch14</code>.
+     </li>
+   </ol>
+
+   <p>
+     As for the <code>stable-diffusion-v1-5</code> folder, the <code>v1-5-pruned.ckpt</code>
+     file inside will be used to create complete weights with
+     <code>[your_path_to_ControlNet-main_folder]/ControlNet-main/tool_add_control.py</code>
+     in the Training section's “Step 6: Create Complete Model Weights”.
+   </p>
 
    </details>
 
