@@ -189,11 +189,15 @@ The dataset directory structure should look like this:
 Each subfolder under ``Infer/`` should contain your ultrasound (US) images in standard format (e.g., ``.png``, ``.jpg``, or ``.tif``).
 
 
-**Adjustment if not "PNG, RGB, 8bit" combination**
+
+
+.. raw:: html
+
+    <details>
+    <summary><b>Adjustment if not "PNG, RGB, 8bit" combination</b></summary>
 
 If your images are not in **PNG, RGB, 8-bit format**, you need to modify the following code in  
 ``[your_path_to_ControlNet-main_folder]/tutorial_dataset.py``.
-
 
 **1. Different image format**
 
@@ -225,11 +229,11 @@ No problem — the ``transform`` function will automatically resize images to **
 
 **Plus**
 
-If your images use another format, to ensure all training images are saved in the correct format, modify the following two functions in  
-``[your_path_to_ControlNet-main_folder]/cldm/logger.py``:
+If your images use another format, to ensure all training images are saved in the correct format, modify the ``log_local`` and ``log_img`` functions in ``[your_path_to_ControlNet-main_folder]/cldm/logger.py``.
 
-- ``log_local``
-- ``log_img``
+.. raw:: html
+
+    </details>
 
 
 
