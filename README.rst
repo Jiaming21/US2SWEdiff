@@ -191,6 +191,50 @@ Each subfolder under ``Infer/`` should contain your ultrasound (US) images in st
 
 
 
+.. raw:: html
+
+   <details>
+   <summary><strong>Adjustment if not "PNG, RGB, 8bit" combination (Click to open)</strong></summary>
+
+   <p>
+   If your images are <b>not in PNG, RGB, 8-bit format</b>, you need to modify the following code in  
+   <code>[your_path_to_ControlNet-main_folder]/tutorial_dataset.py</code>.
+   </p>
+
+   <p><b>1. If the image format is different:</b><br>
+   Change the image loading mode by editing the following two lines:</p>
+
+   <pre><code>source = Image.open(source_filename).convert('RGB')
+target = Image.open(target_filename).convert('RGB')
+   </code></pre>
+
+   <p><b>2. If the bit depth is different:</b><br>
+   Modify the Mask-Image Pair processing section as follows:</p>
+
+   <pre><code>source = np.array(source).astype(np.uint8)
+target = np.array(target).astype(np.uint8)
+
+source = source.astype(np.float32) / 255.0
+target = target.astype(np.float32) / 127.5 - 1.0
+   </code></pre>
+
+   <p><b>3. If the image size is different:</b><br>
+   No problem — the <code>transform</code> function will automatically resize images to <b>256×256</b>.</p>
+
+   <p><b>4. If your images are saved in another format:</b><br>
+   To ensure the training images are saved in the correct format, modify the following two functions in  
+   <code>[your_path_to_ControlNet-main_folder]/cldm/logger.py</code>:</p>
+
+   <ul>
+     <li><code>log_local</code></li>
+     <li><code>log_img</code></li>
+   </ul>
+
+   <p>This ensures that all training and logged images are saved in your specified image format.</p>
+
+   </details>
+
+
 
 
 
