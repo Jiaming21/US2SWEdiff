@@ -133,10 +133,13 @@ Clone the US2SWEdiff repository from GitHub:
 
    <p>You should also check the following script point to the correct model weights.</p>
 
-   <pre><code>[your_path_to_ControlNet-main_folder]/ldm/modules/encoders/modules.py
-   In class FrozenCLIPEmbedder in the "__init__" function, change the version to
-   [your_path_to_ControlNet-main_folder]/models/clip-vit-large-patch14
-   </code></pre>
+   <p><code>[your_path_to_ControlNet-main_folder]/ldm/modules/encoders/modules.py</code></p>
+
+   <p>
+     In class <code>FrozenCLIPEmbedder</code> in the <code>__init__</code> function,
+     change the version to
+     <code>[your_path_to_ControlNet-main_folder]/models/clip-vit-large-patch14</code>.
+   </p>
 
    <p>
      As for the <code>stable-diffusion-v1-5</code> folder, the
