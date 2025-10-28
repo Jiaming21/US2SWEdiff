@@ -699,10 +699,8 @@ Then, run the following command to start training:
 
 .. raw:: html
 
-   <ul>
-     <li>
-       This allows the model to train with empty prompts, a technique commonly used to improve guidance and flexibility during generation.
-     </li>
-   </ul>
+   <p>
+   This allows the model to train with empty prompts, a technique commonly used to improve guidance and flexibility during generation.
+   </p>
 
    </details>
