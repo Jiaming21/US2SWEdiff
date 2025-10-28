@@ -145,7 +145,7 @@ Clone the US2SWEdiff repository from GitHub:
      As for the <code>stable-diffusion-v1-5</code> folder, the
      <code>v1-5-pruned.ckpt</code> file inside will be used to create complete weights with
      <code>[your_path_to_ControlNet-main_folder]/ControlNet-main/tool_add_control.py</code>
-     in the Training section's “Step 6: Create Complete Model Weights”.
+     in the Training section's <strong>Step 6: Create Complete Model Weights</strong>.
    </p>
 
    </details>
