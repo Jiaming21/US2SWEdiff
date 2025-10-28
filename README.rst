@@ -201,8 +201,7 @@ Each subfolder under ``Infer/`` should contain your ultrasound (US) images in st
      <li><strong>Different image format:</strong><br>
        Change the image loading mode by editing these two lines:
        <pre><code>source = Image.open(source_filename).convert('RGB')
-target = Image.open(target_filename).convert('RGB')
-       </code></pre>
+target = Image.open(target_filename).convert('RGB')</code></pre>
      </li>
 
      <li><strong>Different bit depth:</strong><br>
@@ -211,8 +210,7 @@ target = Image.open(target_filename).convert('RGB')
 target = np.array(target).astype(np.uint8)
 
 source = source.astype(np.float32) / 255.0
-target = target.astype(np.float32) / 127.5 - 1.0
-       </code></pre>
+target = target.astype(np.float32) / 127.5 - 1.0</code></pre>
      </li>
 
      <li><strong>Different image size:</strong><br>
