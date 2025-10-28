@@ -191,6 +191,22 @@ Each subfolder under ``Infer/`` should contain your ultrasound (US) images in st
 .. raw:: html
 
    <details>
+   <summary><strong>Advanced Options (click to expand)</strong></summary>
+
+   <ul>
+     <li><strong>Images</strong> — the number of images to generate.</li>
+     <li><strong>Laplacian ksize (odd)</strong> — the kernel size used by the Laplacian edge detector (odd integers only: 1, 3, 5, 7, …).
+       <br>Smaller values give finer, sharper edges; larger values give thicker, smoother edges (with more noise suppression).
+     </li>
+   </ul>
+
+   </details>
+
+
+
+.. raw:: html
+
+   <details>
    <summary><strong>Adjustment if not "PNG, RGB, 8bit" combination (Click to open)</strong></summary>
 
    <p>
