@@ -191,64 +191,47 @@ Each subfolder under ``Infer/`` should contain your ultrasound (US) images in st
 .. raw:: html
 
    <details>
-   <summary><strong>Advanced Options (click to expand)</strong></summary>
+   <summary><strong>Adjustment if not "PNG, RGB, 8bit" combination (click to expand)</strong></summary>
 
    <ul>
-     <li><strong>Images</strong> — the number of images to generate.</li>
-     <li><strong>Laplacian ksize (odd)</strong> — the kernel size used by the Laplacian edge detector (odd integers only: 1, 3, 5, 7, …).
-       <br>Smaller values give finer, sharper edges; larger values give thicker, smoother edges (with more noise suppression).
+     <li><strong>If your images are not in PNG, RGB, 8-bit format</strong>, you need to modify the following code in  
+       <code>[your_path_to_ControlNet-main_folder]/tutorial_dataset.py</code>.
      </li>
-   </ul>
 
-   </details>
-
-
-
-.. raw:: html
-
-   <details>
-   <summary><strong>Adjustment if not "PNG, RGB, 8bit" combination (Click to open)</strong></summary>
-
-   <p>
-   If your images are <b>not in PNG, RGB, 8-bit format</b>, you need to modify the following code in  
-   <code>[your_path_to_ControlNet-main_folder]/tutorial_dataset.py</code>.
-   </p>
-
-   <p><b>1. If the image format is different:</b><br>
-   Change the image loading mode by editing the following two lines:</p>
-
-   <pre><code>source = Image.open(source_filename).convert('RGB')
+     <li><strong>Different image format:</strong><br>
+       Change the image loading mode by editing these two lines:
+       <pre><code>source = Image.open(source_filename).convert('RGB')
 target = Image.open(target_filename).convert('RGB')
-   </code></pre>
+       </code></pre>
+     </li>
 
-   <p><b>2. If the bit depth is different:</b><br>
-   Modify the Mask-Image Pair processing section as follows:</p>
-
-   <pre><code>source = np.array(source).astype(np.uint8)
+     <li><strong>Different bit depth:</strong><br>
+       Modify the Mask–Image Pair processing section:
+       <pre><code>source = np.array(source).astype(np.uint8)
 target = np.array(target).astype(np.uint8)
 
 source = source.astype(np.float32) / 255.0
 target = target.astype(np.float32) / 127.5 - 1.0
-   </code></pre>
+       </code></pre>
+     </li>
 
-   <p><b>3. If the image size is different:</b><br>
-   No problem — the <code>transform</code> function will automatically resize images to <b>256×256</b>.</p>
+     <li><strong>Different image size:</strong><br>
+       No problem — the <code>transform</code> function will automatically resize images to <strong>256×256</strong>.
+     </li>
 
-   <p><b>4. If your images are saved in another format:</b><br>
-   To ensure the training images are saved in the correct format, modify the following two functions in  
-   <code>[your_path_to_ControlNet-main_folder]/cldm/logger.py</code>:</p>
-
-   <ul>
-     <li><code>log_local</code></li>
-     <li><code>log_img</code></li>
+     <li><strong>If your images use another format:</strong><br>
+       To ensure all training images are saved in the correct format, modify the following two functions in  
+       <code>[your_path_to_ControlNet-main_folder]/cldm/logger.py</code>:
+       <ul>
+         <li><code>log_local</code></li>
+         <li><code>log_img</code></li>
+       </ul>
+     </li>
    </ul>
 
-   <p>This ensures that all training and logged images are saved in your specified image format.</p>
+   <p>This ensures that all training and logged images are stored in your specified format.</p>
 
    </details>
-
-<!-- 👇 关键：这两个空行非常重要！一定要保留！ -->
-
 
 
 .. _step-4-run-inference:
