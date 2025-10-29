@@ -688,19 +688,19 @@ Then, run the following command to start training:
      <li><strong>Unlocked Decoder</strong></li>
      <li><strong>Classifier-free Guidance (CFG)</strong><br><br>
        To enable <strong>Classifier-free Guidance (CFG)</strong>, uncomment the following code snippet in your
-
        <code>tutorial_dataset.py</code> file:
-
-       .. code-block:: python
-
-       P = random.random()
-       if P > 0.95:
-           prompt_target = ""
-
-       .. raw:: html
-
-       This allows the model to train with empty prompts, a technique commonly used to improve guidance and flexibility during generation.
-
    </ul>
+
+.. code-block:: python
+
+   P = random.random()
+   if P > 0.95:
+       prompt_target = ""
+
+.. raw:: html
+
+   <p>
+   This allows the model to train with empty prompts, a technique commonly used to improve guidance and flexibility during generation.
+   </p>
 
    </details>
