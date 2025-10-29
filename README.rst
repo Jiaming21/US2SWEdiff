@@ -691,11 +691,13 @@ Then, run the following command to start training:
        <code>tutorial_dataset.py</code> file:
    </ul>
 
-.. code-block:: python
+   .. code-block:: python
 
       P = random.random()
       if P > 0.95:
           prompt_target = ""
+
+   .. raw:: html
 
 .. raw:: html
 
