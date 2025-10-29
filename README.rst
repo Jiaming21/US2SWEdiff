@@ -689,18 +689,16 @@ Then, run the following command to start training:
      <li><strong>Classifier-free Guidance (CFG)</strong><br><br>
        To enable <strong>Classifier-free Guidance (CFG)</strong>, uncomment the following code snippet in your
        <code>tutorial_dataset.py</code> file:
-   </ul>
+   
+   .. code-block:: python
 
-.. code-block:: python
+      P = random.random()
+      if P > 0.95:
+          prompt_target = ""
 
-   P = random.random()
-   if P > 0.95:
-       prompt_target = ""
+   .. raw:: html
 
-.. raw:: html
-
-   <p>
    This allows the model to train with empty prompts, a technique commonly used to improve guidance and flexibility during generation.
-   </p>
+   </ul>
 
    </details>
