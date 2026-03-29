@@ -1,0 +1,24 @@
+真实图像在：/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Location/Real_SWE_Test
+
+
+各个生成文件的目录在：
+w0.05
+/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Location/MDHI_dispersive_upto_0_w0.05/images/test/images
+/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Location/MDHI_dispersive_upto_1_w0.05/images/test/images
+
+w0.1
+/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Location/MDHI_dispersive_upto_1_w0.1/images/test/images
+等等
+
+计算指标，结果放到：/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Location/Image_Evaluation/results
+
+参考：
+/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Location/Image_Evaluation/evaluate_all_metrics_picked_both.py
+/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Location/Image_Evaluation/plot_all_metrics_both.py
+
+Dispersive 指标计算（用 controlnet_new 环境）：
+  conda activate controlnet_new
+  cd Image_Evaluation && python evaluate_dispersive_metrics.py
+  或: ./run_evaluate_controlnet_new.sh
+  画图: python plot_dispersive_metrics.py
+  结果: results/dispersive_all_metrics.csv, results/dispersive_all_metrics.png
