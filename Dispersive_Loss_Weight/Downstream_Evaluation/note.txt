@@ -1,0 +1,101 @@
+#### train
+
+生成图路径为：
+`{project_root}/{MDHI_*}/images/infer/{BLUSG|BUSBRA|BUSI}/laplacian/images`
+
+当前实验固定：
+- `upto_8`
+- `w in {0.01, 0.03, 0.05, 0.07, 0.09}`
+
+`--sources`:
+`MDHI_dispersive_upto_8_w0.01,MDHI_dispersive_upto_8_w0.03,MDHI_dispersive_upto_8_w0.05,MDHI_dispersive_upto_8_w0.07,MDHI_dispersive_upto_8_w0.09`
+
+仅真实 SWE 训练的权重保存在 `{save_root}/Real_SWE/weights_{epochs}epochs.pth`（infer 同样从该目录加载）。
+
+# ResNet-152
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Downstream_Evaluation/scripts/train && \
+python ResNet-152.py \
+  --project_root "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight" \
+  --save_root "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Downstream_Evaluation/ROCs/ResNet-152" \
+  --real_swe_dir "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Real_SWE_Train" \
+  --datasets "BLUSG,BUSBRA,BUSI" \
+  --sources "MDHI_dispersive_upto_8_w0.01,MDHI_dispersive_upto_8_w0.03,MDHI_dispersive_upto_8_w0.05,MDHI_dispersive_upto_8_w0.07,MDHI_dispersive_upto_8_w0.09" \
+  --epochs 5 \
+  --batch_size 32 \
+  --lr 1e-4 \
+  --weight_decay 1e-4 \
+  --num_workers 4 \
+  --seed 2026
+
+# Inception-v3
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Downstream_Evaluation/scripts/train && \
+python Inception-v3.py \
+  --project_root "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight" \
+  --save_root "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Downstream_Evaluation/ROCs/Inception-v3" \
+  --real_swe_dir "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Real_SWE_Train" \
+  --datasets "BLUSG,BUSBRA,BUSI" \
+  --sources "MDHI_dispersive_upto_8_w0.01,MDHI_dispersive_upto_8_w0.03,MDHI_dispersive_upto_8_w0.05,MDHI_dispersive_upto_8_w0.07,MDHI_dispersive_upto_8_w0.09" \
+  --epochs 5 \
+  --batch_size 32 \
+  --lr 1e-4 \
+  --weight_decay 1e-4 \
+  --num_workers 4 \
+  --seed 2026
+
+# VGG-16
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Downstream_Evaluation/scripts/train && \
+python VGG-16.py \
+  --project_root "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight" \
+  --save_root "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Downstream_Evaluation/ROCs/VGG-16" \
+  --real_swe_dir "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Real_SWE_Train" \
+  --datasets "BLUSG,BUSBRA,BUSI" \
+  --sources "MDHI_dispersive_upto_8_w0.01,MDHI_dispersive_upto_8_w0.03,MDHI_dispersive_upto_8_w0.05,MDHI_dispersive_upto_8_w0.07,MDHI_dispersive_upto_8_w0.09" \
+  --epochs 5 \
+  --batch_size 32 \
+  --lr 1e-4 \
+  --weight_decay 1e-4 \
+  --num_workers 4 \
+  --seed 2026
+
+#### infer（`--epochs` 须与训练生成的 `weights_{epochs}epochs.pth` 一致）
+
+`--summary_csv` 传空或省略时：写入 `{save_root 上一级}/summary_{epochs}epochs.csv`
+
+# ResNet-152
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Downstream_Evaluation/scripts/infer && \
+python ResNet-152.py \
+  --save_root "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Downstream_Evaluation/ROCs/ResNet-152" \
+  --real_swe_test_dir "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Real_SWE_Test" \
+  --summary_csv "" \
+  --epochs 10 \
+  --datasets "BLUSG,BUSBRA,BUSI" \
+  --sources "MDHI_dispersive_upto_8_w0.01,MDHI_dispersive_upto_8_w0.03,MDHI_dispersive_upto_8_w0.05,MDHI_dispersive_upto_8_w0.07,MDHI_dispersive_upto_8_w0.09" \
+  --batch_size 64
+
+# Inception-v3
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Downstream_Evaluation/scripts/infer && \
+python Inception-v3.py \
+  --save_root "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Downstream_Evaluation/ROCs/Inception-v3" \
+  --real_swe_test_dir "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Real_SWE_Test" \
+  --summary_csv "" \
+  --epochs 10 \
+  --datasets "BLUSG,BUSBRA,BUSI" \
+  --sources "MDHI_dispersive_upto_8_w0.01,MDHI_dispersive_upto_8_w0.03,MDHI_dispersive_upto_8_w0.05,MDHI_dispersive_upto_8_w0.07,MDHI_dispersive_upto_8_w0.09" \
+  --batch_size 64
+
+# VGG-16
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Downstream_Evaluation/scripts/infer && \
+python VGG-16.py \
+  --save_root "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Downstream_Evaluation/ROCs/VGG-16" \
+  --real_swe_test_dir "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Real_SWE_Test" \
+  --summary_csv "" \
+  --epochs 10 \
+  --datasets "BLUSG,BUSBRA,BUSI" \
+  --sources "MDHI_dispersive_upto_8_w0.01,MDHI_dispersive_upto_8_w0.03,MDHI_dispersive_upto_8_w0.05,MDHI_dispersive_upto_8_w0.07,MDHI_dispersive_upto_8_w0.09" \
+  --batch_size 64
