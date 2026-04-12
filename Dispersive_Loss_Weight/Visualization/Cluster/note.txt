@@ -1,0 +1,30 @@
+# Image Path
+
+# Real_SWE
+
+Test: /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BreastCA-img/test/swe
+
+# -----------------------------------------------------------------------------
+
+# w0.01, 0.03, 0.05, 0.07, 0.09
+
+Test: /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/ \
+MDHI_dispersive_upto_8_w{weight}/images/test/images
+
+Plot t-SNE, 打上标签，一共6幅图，每幅图画当前方法 和 Real SWE的数据点，每幅图还要标上对应的KID, FID值, 脚本放在:
+/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Visualization/Cluster下面
+
+
+
+
+# 命令：
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Visualization/Cluster
+python tsne_compare_with_real.py
+
+
+# 输出目录：
+/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Visualization/Cluster/results/tsne_*.png
+/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Visualization/Cluster/results/tsne_all_methods_grid.png
+
+

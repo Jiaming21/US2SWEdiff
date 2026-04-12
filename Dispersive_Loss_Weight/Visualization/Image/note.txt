@@ -1,0 +1,32 @@
+# Image Path
+
+# Real_SWE
+
+Test: /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BreastCA-img/test/swe
+Laplaician: /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BreastCA-img/test/laplacian
+
+# -----------------------------------------------------------------------------
+
+# w0.01, 0.03, 0.05, 0.07, 0.09
+
+Test: /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/ \
+MDHI_dispersive_upto_8_w{weight}/images/test/images
+
+
+呈现图片，左边是图片序号，右边每列分别是Real SWE，Laplacian, w0.01, 0.03, 0.05, 0.07, 0.09
+
+字体用Comic Sans MS
+
+脚本放在/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Visualization/Image下
+
+
+
+
+# 命令：
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Visualization/Image
+python make_comparison_grid.py
+
+# 输出目录：
+/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Visualization/Image/output
+
