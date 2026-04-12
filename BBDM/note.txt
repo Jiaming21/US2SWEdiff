@@ -1,0 +1,104 @@
+# BBDM
+
+数据集：/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BreastCA-img
+本仓库数据集：/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM/data/
+工作目录：cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM
+
+---------------------------------------------------------------------------------
+
+## 0) 数据目录
+
+train / val / test: .../BBDM/data/bbdm_laplacian2swe_256
+infer BLUSG: .../BBDM/data/infer_BLUSG
+infer BUSBRA: .../BBDM/data/infer_BUSBRA
+infer BUSI: .../BBDM/data/infer_BUSI
+
+---------------------------------------------------------------------------------
+
+## 1) 配置 (configs/Template-BBDM.yaml 生成 configs/BreastCA_laplacian2swe_256.yaml)
+
+yaml文件里面写了文件路径
+训练4000步，每1000步保存一次权重，保存在 results/.../checkpoint/ 下面
+
+---------------------------------------------------------------------------------
+
+## 2) Train
+
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM
+python3 main.py \
+  --config configs/BreastCA_laplacian2swe_256.yaml \
+  --train \
+  --sample_at_start \
+  --save_top \
+  --gpu_ids 0 \
+  --max_steps 4000 \
+  --save_step_interval 1000
+
+### 续训
+
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM
+CKPT=/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM/results/BreastCA_laplacian2swe/BrownianBridge/checkpoint
+python3 main.py \
+  --config configs/BreastCA_laplacian2swe_256.yaml \
+  --train \
+  --sample_at_start \
+  --save_top \
+  --gpu_ids 0 \
+  --resume_model "$CKPT/step_model_4000.pth" \
+  --resume_optim "$CKPT/step_optim_sche_4000.pth" \
+  --max_steps 4000 \
+  --save_step_interval 1000
+
+---------------------------------------------------------------------------------
+
+## 3) Test (生成图片保存在 sample_to_eval 里)
+
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM
+CKPT=/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM/results/BreastCA_laplacian2swe/BrownianBridge/checkpoint
+python3 main.py \
+  --config configs/BreastCA_laplacian2swe_256.yaml \
+  --sample_to_eval \
+  --gpu_ids 0 \
+  --resume_model "$CKPT/step_model_4000.pth"
+
+---------------------------------------------------------------------------------
+
+## 4) Infer — 三个公开集（BLUSG / BUSBRA / BUSI）
+
+更换配置文件：
+- `configs/BreastCA_infer_BLUSG.yaml` → `data/infer_BLUSG`
+- `configs/BreastCA_infer_BUSBRA.yaml` → `data/infer_BUSBRA`
+- `configs/BreastCA_infer_BUSI.yaml` → `data/infer_BUSI`
+
+输出目录：results/<dataset_name>/BrownianBridge/sample_to_eval/<sample_step>/
+
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM
+CKPT=/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM/results/BreastCA_laplacian2swe/BrownianBridge/checkpoint
+python3 main.py \
+  --config configs/BreastCA_infer_BLUSG.yaml \
+  --sample_to_eval \
+  --gpu_ids 0 \
+  --resume_model "$CKPT/step_model_4000.pth"
+
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM
+CKPT=/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM/results/BreastCA_laplacian2swe/BrownianBridge/checkpoint
+python3 main.py \
+  --config configs/BreastCA_infer_BUSBRA.yaml \
+  --sample_to_eval \
+  --gpu_ids 0 \
+  --resume_model "$CKPT/step_model_4000.pth"
+
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM
+CKPT=/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM/results/BreastCA_laplacian2swe/BrownianBridge/checkpoint
+python3 main.py \
+  --config configs/BreastCA_infer_BUSI.yaml \
+  --sample_to_eval \
+  --gpu_ids 0 \
+  --resume_model "$CKPT/step_model_4000.pth"
+

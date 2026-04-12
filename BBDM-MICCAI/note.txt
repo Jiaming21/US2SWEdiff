@@ -1,0 +1,182 @@
+BBDM-MICCAI — BreastCA PNG 256，Laplacian→SWE（holylfs05）
+
+数据根目录（本基线读 metadata 的 `dataset_path`）：
+
+  /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BreastCA-img
+
+工作目录（本仓库含 `configs/BBDM_png_base.yaml`，勿与上游 `BBDM/` 混淆）：
+
+  cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI
+
+（先激活 conda 环境 controlnet_new。）
+
+---
+
+## 0) 数据与 metadata
+
+- 训练/官方 test：`BreastCA-img/{train,test}/metadata_laplacian.json` 等为 **JSONL**（每行一个 JSON）。
+- 三个公开集外推：`breastca_png_aligned` **只读 JSONL**。需要
+  `BreastCA-img/infer_public_<NAME>/test/metadata_laplacian.json`。若尚无，把 `infer/<NAME>/metadata_<NAME>_laplacian.json`（JSON 数组）转成 JSONL：
+
+  cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BreastCA-img
+  for NAME in BLUSG BUSBRA BUSI; do
+    mkdir -p "infer_public_${NAME}/test"
+    python3 -c "import json; n='${NAME}'; s=json.load(open(f'infer/{n}/metadata_{n}_laplacian.json')); o=open(f'infer_public_{n}/test/metadata_laplacian.json','w'); [o.write(json.dumps(r)+'\n') for r in s]"
+  done
+
+---
+
+## 1) Train（Laplacian→SWE，256，示例）
+
+在 `BBDM-MICCAI` 根目录执行（步数、保存间隔可按需改；与 `configs/BBDM_png_base.yaml` 一致）：
+
+  source "$(conda info --base)/etc/profile.d/conda.sh"
+  conda activate controlnet_new
+  cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI
+
+  python main.py \
+    -c configs/BBDM_png_base.yaml \
+    -r results \
+    --train \
+    --exp_name png_laplacian2swe_true256_b5 \
+    --gpu_ids 0 \
+    --HW 256 \
+    --batch 15 \
+    --metadata_name metadata_laplacian.json \
+    --source_modality laplacian \
+    --valid_split test \
+    --test_split test \
+    --max_steps 4000 \
+    --save_step_interval 1000
+
+权重与日志根目录（相对 `BBDM-MICCAI`）：
+
+  /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI/results/breastca_png_256/png_laplacian2swe_true256_b5/
+
+（若从中途恢复，可加 `--resume_model` / `--resume_optim` 指向该目录下 `checkpoint/` 内文件。）
+
+---
+
+## 2) Test / sample_to_eval（官方 BreastCA test，21000 步权重示例）
+
+一键对 canny / laplacian / us 三个实验各跑一次（需各自 checkpoint 存在）：
+
+  bash shell/test/sample_breastca_png_256_21k.sh
+
+仅 Laplacian 实验、手写等价命令（权重路径按实际 `step_model_*.pth` 修改）：
+
+  source "$(conda info --base)/etc/profile.d/conda.sh"
+  conda activate controlnet_new
+  cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI
+
+  python main.py \
+    -c configs/BBDM_png_base.yaml \
+    -r results \
+    --exp_name png_laplacian2swe_true256_b5 \
+    --sample_to_eval \
+    --gpu_ids 0 \
+    --resume_model results/breastca_png_256/png_laplacian2swe_true256_b5/checkpoint/step_model_21000.pth \
+    --HW 256 \
+    --batch 15 \
+    --metadata_name metadata_laplacian.json \
+    --source_modality laplacian \
+    --valid_split test \
+    --test_split test
+
+默认输出目录（在 `BBDM-MICCAI` 下执行、未指定 `--sample_output_dir` 时）：
+
+  /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI/results/breastca_png_256/png_laplacian2swe_true256_b5/sample_to_eval/step_model_21000.pth/normal_50/
+
+---
+
+## 3) Infer — 公开集 BLUSG / BUSBRA / BUSI（结果放在 step_model_21000.pth 下）
+
+目标目录（与现有 `normal_50` 并列，按数据集分子文件夹）：
+
+  /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI/results/breastca_png_256/png_laplacian2swe_true256_b5/sample_to_eval/step_model_21000.pth/infer_BLUSG/normal_50/
+  /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI/results/breastca_png_256/png_laplacian2swe_true256_b5/sample_to_eval/step_model_21000.pth/infer_BUSBRA/normal_50/
+  /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI/results/breastca_png_256/png_laplacian2swe_true256_b5/sample_to_eval/step_model_21000.pth/infer_BUSI/normal_50/
+
+一键跑三组（需 `checkpoint/step_model_21000.pth` 存在）：
+
+  bash shell/test/sample_public_infer_laplacian_21k.sh
+
+指定 GPU：
+
+  GPU_IDS=0 bash shell/test/sample_public_infer_laplacian_21k.sh
+
+单组完整命令（三组分别整段复制执行；目录下若还缺 BUSI，只跑「BUSI」整段即可）。
+
+--- BLUSG ---
+
+  cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI
+  source "$(conda info --base)/etc/profile.d/conda.sh"
+  conda activate controlnet_new
+
+  OUT=/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI/results/breastca_png_256/png_laplacian2swe_true256_b5/sample_to_eval/step_model_21000.pth/infer_BLUSG/normal_50
+  mkdir -p "$OUT"
+
+  python main.py \
+    -c configs/BBDM_png_base.yaml \
+    -r results \
+    --exp_name png_laplacian2swe_true256_b5 \
+    --sample_to_eval \
+    --gpu_ids 0 \
+    --resume_model /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI/results/breastca_png_256/png_laplacian2swe_true256_b5/checkpoint/step_model_21000.pth \
+    --HW 256 \
+    --batch 15 \
+    --metadata_name metadata_laplacian.json \
+    --source_modality laplacian \
+    --test_split infer_public_BLUSG/test \
+    --valid_split test \
+    --sample_output_dir "$OUT"
+
+--- BUSBRA ---
+
+  cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI
+  source "$(conda info --base)/etc/profile.d/conda.sh"
+  conda activate controlnet_new
+
+  OUT=/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI/results/breastca_png_256/png_laplacian2swe_true256_b5/sample_to_eval/step_model_21000.pth/infer_BUSBRA/normal_50
+  mkdir -p "$OUT"
+
+  python main.py \
+    -c configs/BBDM_png_base.yaml \
+    -r results \
+    --exp_name png_laplacian2swe_true256_b5 \
+    --sample_to_eval \
+    --gpu_ids 0 \
+    --resume_model /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI/results/breastca_png_256/png_laplacian2swe_true256_b5/checkpoint/step_model_21000.pth \
+    --HW 256 \
+    --batch 15 \
+    --metadata_name metadata_laplacian.json \
+    --source_modality laplacian \
+    --test_split infer_public_BUSBRA/test \
+    --valid_split test \
+    --sample_output_dir "$OUT"
+
+--- BUSI ---
+
+  cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI
+  source "$(conda info --base)/etc/profile.d/conda.sh"
+  conda activate controlnet_new
+
+  OUT=/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI/results/breastca_png_256/png_laplacian2swe_true256_b5/sample_to_eval/step_model_21000.pth/infer_BUSI/normal_50
+  mkdir -p "$OUT"
+
+  python main.py \
+    -c configs/BBDM_png_base.yaml \
+    -r results \
+    --exp_name png_laplacian2swe_true256_b5 \
+    --sample_to_eval \
+    --gpu_ids 0 \
+    --resume_model /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BBDM-MICCAI/results/breastca_png_256/png_laplacian2swe_true256_b5/checkpoint/step_model_21000.pth \
+    --HW 256 \
+    --batch 15 \
+    --metadata_name metadata_laplacian.json \
+    --source_modality laplacian \
+    --test_split infer_public_BUSI/test \
+    --valid_split test \
+    --sample_output_dir "$OUT"
+
+说明：`--sample_output_dir` 指向的最终目录需包含 `normal_50`，以与默认 test 输出布局一致；`--test_split infer_public_<NAME>/test` 与 `dataset_path`（默认 `BreastCA-img`）组合后读取上述 jsonl metadata。

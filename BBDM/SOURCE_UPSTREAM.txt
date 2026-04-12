@@ -1,0 +1,2 @@
+Cloned from: https://github.com/xuekt98/BBDM
+Paper: Bo Li et al., CVPR 2023 — BBDM: Image-to-Image Translation with Brownian Bridge Diffusion Models.
