@@ -1,0 +1,82 @@
+# DBIM (Diffusion Bridge Implicit Models)
+
+主集为 **Lap|SWE**；三份 infer 为 **Lap|Lap**（左、右为**同一张** Laplacian，占位目标域）。
+数据集：从 pix2pix 同源数据生成
+本仓库数据集：/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/DBIM/assets/datasets/breastca_laplacian2swe
+工作目录：cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/DBIM
+
+---------------------------------------------------------------------------------
+## 0) 数据目录
+
+- 主集输出：`assets/datasets/breastca_laplacian2swe/`
+  - `train/`：BreastCA **train**（真 Lap|SWE）
+  - `val/`：**BreastCA 官方 test**（DBIM `EdgesDataset` 的 eval / `sample.py` 的 test split 都读此目录）
+  - `test/`：与 `val/` **内容相同**的副本（仅命名与 BreastCA「test」对齐；上游代码不读 `test/`）
+- 三份 infer：`assets/datasets/breastca_infer_{BLUSG,BUSBRA,BUSI}/`（`train/`、`val/` 各一份；**Lap|Lap** 宽图）。
+由 `bash assets/datasets/prepare_breastca_laplacian2swe.sh`
+从 `PIXLAP/infer_<NAME>/test` 生成。若你曾裁成单张窄图，
+可恢复：`python3 assets/datasets/expand_infer_to_laplap.py`。
+
+---------------------------------------------------------------------------------
+
+## 1) Train
+
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/DBIM
+bash scripts/train_bridge.sh breastca_l2s
+
+---------------------------------------------------------------------------------
+
+## 2) Test
+
+DBIM 通过 `scripts/sample.sh` 调 `sample.py`，**不是** ABridge 的 `sample_to_eval`。结果在 **`workdir/<权重文件名去掉 .pt>/sample_<步数>/split=test/...`**（`sample.py` 用权重名解析步数，请使用形如 `model_000020000.pt` 的 checkpoint）。
+
+训练产出目录一般为 **`workdir/breastca_l2s-ddbm/`**（与 `train_bridge.sh` 里 `--exp=breastca_l2s-ddbm` 一致）。
+
+```bash
+conda activate controlnet_new   # 或你安装依赖的环境
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/DBIM
+export PYTHONPATH="${PYTHONPATH}:./"
+
+# 指向你训练好的权重（示例步数请改成实际文件名）
+export MODEL_PATH=/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/DBIM/workdir/breastca_l2s-ddbm/model_001000.pt
+
+# 参数：数据集名  NFE  采样器  [附加]
+# dbim 时第 4 个参数为 eta（0~1）；heun 无第 4 参；dbim_high_order 第 4 参为阶数 2 或 3
+bash scripts/sample.sh breastca_l2s 10 dbim 0.0
+```
+
+`sample.sh` 同样按可见 GPU 数设置 `nproc_per_node`；需要时 `NPROC_PER_NODE=1 bash scripts/sample.sh ...`。
+
+---------------------------------------------------------------------------------
+
+## 3) Infer — 三个公开集（BLUSG / BUSBRA / BUSI）
+
+数据目录：
+
+- `assets/datasets/breastca_infer_BLUSG`
+- `assets/datasets/breastca_infer_BUSBRA`
+- `assets/datasets/breastca_infer_BUSI`
+
+仍用**同一套**训练权重 `MODEL_PATH`，只换 `sample.sh` 第一个参数（内部会换 `DATA_DIR`）：
+
+```bash
+conda activate controlnet_new
+cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/DBIM
+export PYTHONPATH="${PYTHONPATH}:./"
+export MODEL_PATH=/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/DBIM/workdir/breastca_l2s-ddbm/model_001000.pt
+
+bash scripts/sample.sh breastca_infer_blusg 10 dbim 0.0
+bash scripts/sample.sh breastca_infer_busbra 10 dbim 0.0
+bash scripts/sample.sh breastca_infer_busi 10 dbim 0.0
+```
+
+---------------------------------------------------------------------------------
+
+## 4) 官方数据集（与 BreastCA 无关）
+
+```bash
+bash scripts/train_bridge.sh
+bash scripts/sample.sh e2h 5 dbim 0.0
+bash scripts/evaluate.sh e2h 5 dbim 0.0
+```

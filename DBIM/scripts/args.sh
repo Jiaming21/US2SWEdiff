@@ -1,0 +1,119 @@
+DATASET_NAME=$1
+
+if [[ $DATASET_NAME == "e2h" ]]; then
+    DATA_DIR=assets/datasets/edges2handbags
+    DATASET=edges2handbags
+    IMG_SIZE=64
+
+    NUM_CH=192
+    NUM_RES_BLOCKS=3
+    ATTN_TYPE=True
+
+    EXP="e2h${IMG_SIZE}_${NUM_CH}d"
+    SAVE_ITER=100000
+    MICRO_BS=64
+    DROPOUT=0.1
+    CLASS_COND=False
+
+    PRED="vp"
+elif [[ $DATASET_NAME == "diode" ]]; then
+    DATA_DIR=assets/datasets/DIODE-256
+    DATASET=diode
+    IMG_SIZE=256
+
+    NUM_CH=256
+    NUM_RES_BLOCKS=2
+    ATTN_TYPE=True
+
+    EXP="diode${IMG_SIZE}_${NUM_CH}d"
+    SAVE_ITER=1000
+    LR_ANNEAL_STEPS=10000
+    MICRO_BS=16
+    DROPOUT=0.1
+    CLASS_COND=False
+
+    PRED="vp"
+elif [[ $DATASET_NAME == "imagenet_inpaint_center" ]]; then
+    DATA_DIR=assets/datasets/ImageNet
+    DATASET=imagenet_inpaint_center
+    IMG_SIZE=256
+
+    NUM_CH=256
+    NUM_RES_BLOCKS=2
+    ATTN_TYPE=False
+
+    EXP="imagenet_inpaint_center${IMG_SIZE}_${NUM_CH}d"
+    SAVE_ITER=20000
+    MICRO_BS=16
+    DROPOUT=0
+    CLASS_COND=True
+
+    PRED="i2sb_cond"
+elif [[ $DATASET_NAME == "breastca_l2s" ]]; then
+    # Laplacian→SWE，256；数据由 assets/datasets/prepare_breastca_laplacian2swe.sh 生成
+    DATA_DIR=assets/datasets/breastca_laplacian2swe
+    DATASET=edges2handbags
+    IMG_SIZE=256
+
+    NUM_CH=256
+    NUM_RES_BLOCKS=2
+    ATTN_TYPE=True
+
+    EXP="breastca_l2s${IMG_SIZE}_${NUM_CH}d"
+    SAVE_ITER=500
+    LR_ANNEAL_STEPS=5000
+    # 单卡 256 模型易 OOM：偏小 microbatch + 全局 batch；仍 OOM 可 MICRO_BS=2 或降 GLOBAL_BATCH_SIZE
+    MICRO_BS=4
+    GLOBAL_BATCH_SIZE=128
+    USE_CHECKPOINT=True
+    DROPOUT=0.1
+    CLASS_COND=False
+
+    PRED="vp"
+elif [[ $DATASET_NAME == "breastca_infer_blusg" || $DATASET_NAME == "breastca_infer_busbra" || $DATASET_NAME == "breastca_infer_busi" ]]; then
+    case $DATASET_NAME in
+        breastca_infer_blusg) DATA_DIR=assets/datasets/breastca_infer_BLUSG ;;
+        breastca_infer_busbra) DATA_DIR=assets/datasets/breastca_infer_BUSBRA ;;
+        breastca_infer_busi) DATA_DIR=assets/datasets/breastca_infer_BUSI ;;
+    esac
+    DATASET=edges2handbags
+    IMG_SIZE=256
+
+    NUM_CH=256
+    NUM_RES_BLOCKS=2
+    ATTN_TYPE=True
+
+    EXP="${DATASET_NAME}_${IMG_SIZE}_${NUM_CH}d"
+    SAVE_ITER=20000
+    MICRO_BS=4
+    GLOBAL_BATCH_SIZE=128
+    USE_CHECKPOINT=True
+    DROPOUT=0.1
+    CLASS_COND=False
+
+    PRED="vp"
+fi
+    
+if  [[ $PRED == "ve" ]]; then
+    EXP+="_ve"
+    COND=concat
+    SIGMA_MAX=80.0
+    SIGMA_MIN=0.002
+elif  [[ $PRED == "vp" ]]; then
+    EXP+="_vp"
+    COND=concat
+    BETA_D=2
+    BETA_MIN=0.1
+    SIGMA_MAX=1
+    SIGMA_MIN=0.0001
+elif  [[ $PRED == "i2sb_cond" ]]; then
+    EXP+="_i2sb_cond"
+    COND=concat
+    BETA_MAX=1.0
+    BETA_MIN=0.1
+    SIGMA_MAX=1
+    SIGMA_MIN=0.0001
+else
+    echo "Not supported"
+    exit 1
+fi
