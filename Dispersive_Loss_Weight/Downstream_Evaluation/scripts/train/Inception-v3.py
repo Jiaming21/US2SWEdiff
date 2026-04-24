@@ -165,7 +165,7 @@ def main():
         "--project_root",
         type=str,
         default=BASE,
-        help="含实验子目录的根路径；生成图在 {root}/{src}/images/infer/{数据集}/laplacian/images",
+        help="Root path containing experiment subdirectories; generated images are in {root}/{src}/images/infer/{dataset}/laplacian/images",
     )
     parser.add_argument(
         "--save_root",

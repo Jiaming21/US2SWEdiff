@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-自包含 ResNet-152 下游训练（与 VGG-16.py 数据路径一致），不依赖 SWEBreCA-Pred/ResNet-50.py。
+Self-contained ResNet-152 downstream training (same data paths as VGG-16.py), without relying on SWEBreCA-Pred/ResNet-50.py.
 """
 import argparse
 import os
@@ -176,7 +176,7 @@ def main():
         "--project_root",
         type=str,
         default=BASE,
-        help="含实验子目录的根路径；生成图在 {root}/{src}/images/infer/{数据集}/laplacian/images",
+        help="Root path containing experiment subdirectories; generated images are in {root}/{src}/images/infer/{dataset}/laplacian/images",
     )
     parser.add_argument(
         "--save_root",

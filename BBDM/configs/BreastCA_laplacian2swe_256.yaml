@@ -1,6 +1,6 @@
-# BreastCA Laplacian→SWE，256×256，像素空间 BBDM
-# 数据：BBDM/data/bbdm_laplacian2swe_256（A=Laplacian，B=SWE；与上游 custom_aligned 一致：B→x0，A→x_cond）
-# 当前 training.n_steps / save_step_interval 为短训示例；长训可改 n_steps≈400000 并去掉 save_step_interval
+# BreastCA Laplacian->SWE, 256x256, pixel-space BBDM
+# Data: BBDM/data/bbdm_laplacian2swe_256 (A=Laplacian, B=SWE; consistent with upstream custom_aligned: B->x0, A->x_cond)
+# Current training.n_steps / save_step_interval are short-run examples; for long runs set n_steps≈400000 and remove save_step_interval
 runner: "BBDMRunner"
 training:
   n_epochs: 100000

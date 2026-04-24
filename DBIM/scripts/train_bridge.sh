@@ -11,20 +11,20 @@ EXP=${DATASET_NAME}-${TRAIN_MODE}
 # Optional ImageNet-style init; omit if missing (otherwise torch.load fails on all ranks)
 CKPT=assets/ckpts/256x256_diffusion_fixedsigma.pt
 
-# 必须用 PyTorch 可见设备数：Slurm 常设 CUDA_VISIBLE_DEVICES=单卡，nvidia-smi -L 仍会数满机物理卡 → invalid device ordinal
+# Must use PyTorch-visible GPU count: Slurm often sets CUDA_VISIBLE_DEVICES to one card, while nvidia-smi -L still sees all physical GPUs -> invalid device ordinal
 NGPU=$(python3 -c "import torch; print(torch.cuda.device_count())" 2>/dev/null || echo 0)
 NGPU=$(echo "$NGPU" | tr -d '[:space:]')
 if [[ -z "$NGPU" || "$NGPU" -lt 1 ]]; then
-  echo "WARN: torch.cuda.device_count()=${NGPU:-0} (无 CUDA？)，强制 NPROC_PER_NODE=1"
+  echo "WARN: torch.cuda.device_count()=${NGPU:-0} (no CUDA?), force NPROC_PER_NODE=1"
   NGPU=1
 fi
 NPROC_PER_NODE=${NPROC_PER_NODE:-$NGPU}
 if [[ "$NPROC_PER_NODE" -gt "$NGPU" ]]; then
-  echo "WARN: NPROC_PER_NODE=$NPROC_PER_NODE > torch.cuda.device_count()=$NGPU，已钳制为 $NGPU"
+  echo "WARN: NPROC_PER_NODE=$NPROC_PER_NODE > torch.cuda.device_count()=$NGPU, clamped to $NGPU"
   NPROC_PER_NODE=$NGPU
 fi
 
-# 自动选择空闲端口（也可通过环境变量 MASTER_PORT 覆盖）
+# Auto-select a free port (can be overridden by MASTER_PORT)
 if [[ -z "${MASTER_PORT:-}" ]]; then
   MASTER_PORT=$(python3 - <<'PY'
 import socket
@@ -35,7 +35,7 @@ s.close()
 PY
 )
 fi
-# 部分集群无 IPv6 localhost，避免 c10d 绑定 [::]:PORT 失败（errno 97）
+# Some clusters do not support IPv6 localhost; avoid c10d binding failure on [::]:PORT (errno 97)
 export MASTER_ADDR=${MASTER_ADDR:-127.0.0.1}
 
 RESUME_ARG=()

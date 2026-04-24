@@ -66,7 +66,7 @@ def main(args):
     model, diffusion = create_model_and_diffusion(**args_to_dict(args, model_and_diffusion_defaults().keys()))
     model.to(dist_util.dev())
 
-    # log="all" 会在大 UNet 上显著增显存；默认关闭，需要时: WANDB_WATCH=1
+    # log="all" can significantly increase memory on large UNet; disabled by default, enable via: WANDB_WATCH=1
     if dist.get_rank() == 0 and os.environ.get("WANDB_WATCH", "").lower() in ("1", "true", "yes"):
         wandb.watch(model, log="gradients", log_freq=100)
     schedule_sampler = create_named_schedule_sampler(args.schedule_sampler, diffusion)

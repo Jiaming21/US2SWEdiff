@@ -22,18 +22,18 @@ def load_state_dict(ckpt_path, location='cpu'):
 
 
 def create_model(config_path):
-    config = OmegaConf.load(config_path) # 库，专门读取yaml文件
-    model = instantiate_from_config(config.model).cpu() # 给model的变量赋值
+    config = OmegaConf.load(config_path) # library dedicated to reading yaml files
+    model = instantiate_from_config(config.model).cpu() # assign values to model variables
     print(f'Loaded model config from [{config_path}]')
     return model
 
 def compare_weights(state_dict, layer1_name, layer2_name):
     """
-    比较两层权重是否完全相同
-    :param state_dict: 模型的 state_dict
-    :param layer1_name: 第一个层的名称
-    :param layer2_name: 第二个层的名称
-    :return: 布尔值，表示权重是否相同
+    Compare whether two layer weights are exactly the same
+    :param state_dict: model state_dict
+    :param layer1_name: name of the first layer
+    :param layer2_name: name of the second layer
+    :return: boolean indicating whether weights are identical
     """
     if layer1_name not in state_dict:
         print(f"Layer '{layer1_name}' not found in state_dict.")
@@ -42,11 +42,11 @@ def compare_weights(state_dict, layer1_name, layer2_name):
         print(f"Layer '{layer2_name}' not found in state_dict.")
         return False
 
-    # 获取两层的权重
+    # Get weights of two layers
     weight1 = state_dict[layer1_name]
     weight2 = state_dict[layer2_name]
 
-    # 比较权重是否相等
+    # Compare whether weights are equal
     are_equal = torch.equal(weight1, weight2)
     if are_equal:
         print(f"The weights of '{layer1_name}' and '{layer2_name}' are identical.")

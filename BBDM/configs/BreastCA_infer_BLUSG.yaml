@@ -1,5 +1,5 @@
-# 公开集 BLUSG：Laplacian→SWE 推理（test/A 与 test/B 占位对齐，见 data/infer_BLUSG）
-# 自 BreastCA_laplacian2swe_256.yaml；推理用 --sample_to_eval
+# Public set BLUSG: Laplacian->SWE inference (test/A and test/B placeholder alignment; see data/infer_BLUSG)
+# Derived from BreastCA_laplacian2swe_256.yaml; use --sample_to_eval for inference
 runner: "BBDMRunner"
 training:
   n_epochs: 200

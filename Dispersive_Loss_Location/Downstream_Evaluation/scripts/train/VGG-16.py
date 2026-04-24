@@ -14,7 +14,7 @@ from torchvision import models, transforms
 IMG_EXTS = (".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff", ".webp")
 BASE = "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Location"
 DEFAULT_DATASETS = ["BLUSG", "BUSBRA", "BUSI"]
-# 与 BASE 下实验目录名一致；各源生成图在：
+# Must match experiment directory names under BASE; generated images for each source are in:
 # {project_root}/{src}/images/infer/{BLUSG|BUSBRA|BUSI}/{canny|laplacian|us}/images
 DEFAULT_SOURCES = [
     "canny_mdhi_disp_upto_8",
@@ -178,7 +178,7 @@ def main():
         "--project_root",
         type=str,
         default=BASE,
-        help="含实验子目录的根路径；生成图在 {root}/{src}/images/infer/{数据集}/{canny|laplacian|us}/images",
+        help="Root path containing experiment subdirectories; generated images are in {root}/{src}/images/infer/{dataset}/{canny|laplacian|us}/images",
     )
     parser.add_argument(
         "--save_root",

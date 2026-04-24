@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 从 pix2pix 的 laplacian-swe 拷到本仓库 BBDM/data/（不软链）。在 BBDM 根目录执行：
+# Copy laplacian-swe from pix2pix into this repo's BBDM/data/ (no symlink). Run in BBDM root:
 #   bash scripts/prepare_data_from_pix2pix.sh
 set -euo pipefail
 

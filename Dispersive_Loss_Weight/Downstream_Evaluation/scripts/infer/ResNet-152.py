@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-自包含 ResNet-152 推理（与 infer/VGG-16.py 一致，仅 backbone 不同），不依赖 SWEBreCA-Pred。
+Self-contained ResNet-152 inference (consistent with infer/VGG-16.py, only backbone differs), without relying on SWEBreCA-Pred.
 """
 import argparse
 import csv

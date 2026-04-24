@@ -44,7 +44,7 @@ def model_order(model_id: str) -> int:
 
 
 def bar_labels(ax, bars, fmt="%.2f", fontsize=7):
-    """兼容旧版 matplotlib：无 bar_label 时用 text 标柱顶。"""
+    """Compatible with older matplotlib: use text labels on bar tops when bar_label is unavailable."""
     try:
         ax.bar_label(bars, fmt=fmt, fontsize=fontsize, label_type="edge")
     except AttributeError:

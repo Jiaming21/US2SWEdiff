@@ -1,22 +1,22 @@
-真实图像：
+Real images:
 /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Real_SWE_Test
 
-生成图目录（固定 upto_8，weight ablation）：
+Generated image directories (fixed upto_8, weight ablation):
 /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/MDHI_dispersive_upto_8_w0.01/images/test/images
 /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/MDHI_dispersive_upto_8_w0.03/images/test/images
 /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/MDHI_dispersive_upto_8_w0.05/images/test/images
 /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/MDHI_dispersive_upto_8_w0.07/images/test/images
 /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/MDHI_dispersive_upto_8_w0.09/images/test/images
 
-结果输出：
+Result output:
 /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Image_Evaluation/results
 
-Dispersive 指标计算（controlnet_new）：
+Dispersive metric calculation (controlnet_new):
 conda activate controlnet_new
 cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Image_Evaluation
 python evaluate_dispersive_metrics.py
 python plot_dispersive_metrics.py
 
-输出文件：
+Output files:
 results/dispersive_all_metrics.csv
 results/dispersive_all_metrics.png

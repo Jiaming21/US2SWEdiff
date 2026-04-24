@@ -45,20 +45,20 @@ def log_local(save_dir, images, batch_idx):
     samples_root = os.path.join(save_dir, "images")
     tmp = os.path.join(save_dir, "tmp")
     
-    for k in images: # 遍历字典的key
-        for idx, image in enumerate(images[k]): # idx永远是0，没有用到；image是对应tensor
+    for k in images: # iterate over dictionary keys
+        for idx, image in enumerate(images[k]): # idx is always 0 and unused; image is the corresponding tensor
                      
-            # 真实的图像（储存在reals文件夹下）
+            # Real images (stored in the reals folder)
             if k == "reconstruction":
                 image = (image + 1.0) / 2.0 # [-1, 1] -> [0, 1]
                 image = image.permute(1, 2, 0).numpy() # [W, H, C]
                 image = (image * 255).astype(np.uint8) # [0, 255]
-                filename = "b-{:06}_idx-{}.png".format(batch_idx, idx) # batch_idx来自当前dataloader读的是第几张照片；idx一直是0
-                path = os.path.join(reals_root, filename) # generated image保存路径
-                os.makedirs(os.path.split(path)[0], exist_ok=True) # 创建images文件夹
+                filename = "b-{:06}_idx-{}.png".format(batch_idx, idx) # batch_idx is current sample index from dataloader; idx stays 0
+                path = os.path.join(reals_root, filename) # save path for generated image
+                os.makedirs(os.path.split(path)[0], exist_ok=True) # create images folder
                 Image.fromarray(image).save(path)
 
-            # US image（储存在mask文件夹下）
+            # US image (stored in mask folder)
             if k == "control":
                 image = (image + 1.0) / 2.0
                 image = image.permute(1, 2, 0).numpy()
@@ -68,7 +68,7 @@ def log_local(save_dir, images, batch_idx):
                 os.makedirs(os.path.split(path)[0], exist_ok=True)
                 Image.fromarray(mask).save(path)
 
-            # 生成的图像（储存在images文件夹下）
+            # Generated image (stored in images folder)
             if k == "samples_cfg_scale_9.00":
                 image = (image + 1.0) / 2.0
                 image = image.permute(1, 2, 0).numpy()
@@ -78,7 +78,7 @@ def log_local(save_dir, images, batch_idx):
                 os.makedirs(os.path.split(path)[0], exist_ok=True)
                 Image.fromarray(image).save(path)
             
-            # 去噪过程（储存在tmp文件夹下）
+            # Denoising process (stored in tmp folder)
             if k == 'diffusion_row': # size is [3, 260, 1550]
                 image = (image + 1.0) / 2.0
                 image = image.permute(1, 2, 0).numpy()
@@ -89,7 +89,7 @@ def log_local(save_dir, images, batch_idx):
                 Image.fromarray(image).save(path)
 
 if __name__ == "__main__":
-    # 若指定 --steps，输出到 generated_results/<steps>steps/<out_dir>
+    # If --steps is specified, output to generated_results/<steps>steps/<out_dir>
     if args.steps is not None:
         finaldir = os.path.join("generated_results", "{}steps".format(args.steps), args.out_dir)
     else:
@@ -104,9 +104,9 @@ if __name__ == "__main__":
     config_path = args.model_config or variant_configs[args.model_variant]
 
     with torch.cuda.device(0):
-        model = get_model(args.ckpt, config_path)  # 加载扩散模型
-        dataset = MyDataset(root=args.metadata)  # 加载数据集（这里是inference数据集）
-        dataloader = DataLoader(dataset, num_workers=4, batch_size=1, shuffle=False)  # Dataloader创建张量[1, 3, 256, 256]
+        model = get_model(args.ckpt, config_path)  # load diffusion model
+        dataset = MyDataset(root=args.metadata)  # load dataset (inference dataset here)
+        dataloader = DataLoader(dataset, num_workers=4, batch_size=1, shuffle=False)  # Dataloader creates tensor [1, 3, 256, 256]
         os.makedirs(finaldir, exist_ok=True)
         with torch.no_grad():
             with model.ema_scope():
@@ -115,29 +115,29 @@ if __name__ == "__main__":
                     model.eval()
 
                     images = model.log_images(
-                        batch, # 输入数据（通常是字典或张量）
-                        N=BATCH_SIZE, # 生成图像的数量（批次大小）
-                        ddim_steps = 50, # DDIM 采样步数（扩散模型生成图像的迭代次数）
-                        ddim_eta = 0.0, # DDIM 的噪声系数（η=0.0 是确定性采样）
-                        plot_diffusion_rows = True # 可选：是否绘制扩散过程（注释掉了）
+                        batch, # input data (usually dict or tensor)
+                        N=BATCH_SIZE, # number of generated images (batch size)
+                        ddim_steps = 50, # DDIM sampling steps (iterations for diffusion generation)
+                        ddim_eta = 0.0, # DDIM noise coefficient (eta=0.0 is deterministic sampling)
+                        plot_diffusion_rows = True # optional: whether to plot diffusion process (commented out)
                     )
                     
-                    images["diffusion_row"] = images["diffusion_row"].unsqueeze(0) # 需要让它保持和其他图片一样[1, 3, H, W]
+                    images["diffusion_row"] = images["diffusion_row"].unsqueeze(0) # keep same shape as other images [1, 3, H, W]
                     
-                    # images是一个字典{'reconstruction': [3, 256, 256]; 
+                    # images is a dict {'reconstruction': [3, 256, 256]; 
                                     # 'control': ;
                                     # 'conditioning': ;
                                     # 'diffusion_row': ;
                                     # 'samples_cfg_scale_9.00': }
-                    # print("reconstruction shape: {}".format(images['reconstruction'].shape)) # 打印重建图像的形状
-                    # print("control shape: {}".format(images['control'].shape))  # 打印控制信号的形状
-                    # print("conditioning shape: {}".format(images['conditioning'].shape)) # 打印条件信息（可能是张量或元数据）
-                    # print("diffusion_row shape: {}".format(images['diffusion_row'].shape)) # 打印扩散过程的行数据
-                    # print("samples_cfg_scale_9.00 shape: {}".format(images['samples_cfg_scale_9.00'].shape)) # 打印 CFG=9.0 时的生成样本
+                    # print("reconstruction shape: {}".format(images['reconstruction'].shape)) # print reconstructed image shape
+                    # print("control shape: {}".format(images['control'].shape))  # print control signal shape
+                    # print("conditioning shape: {}".format(images['conditioning'].shape)) # print conditioning info (tensor or metadata)
+                    # print("diffusion_row shape: {}".format(images['diffusion_row'].shape)) # print diffusion row data
+                    # print("samples_cfg_scale_9.00 shape: {}".format(images['samples_cfg_scale_9.00'].shape)) # print generated samples at CFG=9.0
                     
                     for k in images: 
-                        if isinstance(images[k], torch.Tensor): # 检查当前值是否是 PyTorch Tensor
-                            images[k] = images[k].detach().cpu() # 断开计算图 + 移到 CPU
-                            images[k] = torch.clamp(images[k], -1.0, 1.0) # 钳制数值范围到 [-1, 1]
+                        if isinstance(images[k], torch.Tensor): # check whether current value is a PyTorch Tensor
+                            images[k] = images[k].detach().cpu() # detach from graph + move to CPU
+                            images[k] = torch.clamp(images[k], -1.0, 1.0) # clamp value range to [-1, 1]
  
                     log_local(finaldir, images, idx)

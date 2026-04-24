@@ -18,24 +18,24 @@ from pytorch_lightning.loggers import TensorBoardLogger
 
 # Configs
 project_root = Path(__file__).resolve().parent
-resume_path_improved = str(project_root / "models" / "stable-diffusion-v1-5" / "controlnet_improved.ckpt") # controlnet以及SD的参数，即cldm的参数; controlnet_improved就是更新过ControlNet架构的ControlNet+SD
+resume_path_improved = str(project_root / "models" / "stable-diffusion-v1-5" / "controlnet_improved.ckpt") # parameters of controlnet and SD, i.e., cldm parameters; controlnet_improved is ControlNet+SD with updated ControlNet architecture
 resume_path_original = str(project_root / "models" / "stable-diffusion-v1-5" / "controlnet.ckpt")
 resume_path_ours = str(project_root / "models" / "stable-diffusion-v1-5" / "controlnet_ours.ckpt")
-batch_size = 15 # 扩大
-logger_freq = 300 # 多少步记录一次
-# 在GAI中，loss参考意义不大。
-# 有两种方法：
-# 1. 每隔一定step记录FID (50K)，SD对全部condition进行推理时间太长
-# 2. 生成一组图像，每隔300步肉眼看
+batch_size = 15 # increased
+logger_freq = 300 # log every N steps
+# In GAI, loss is not very informative.
+# Two options:
+# 1) Log FID (50K) every certain steps; SD inference on all conditions takes too long
+# 2) Generate a set of images and inspect visually every 300 steps
 
 learning_rate = 1e-5
-sd_locked = False # decoder部分是否冻结权重
-only_mid_control = False # 只有mid层->mid层权重加到SD中
+sd_locked = False # whether to freeze decoder weights
+only_mid_control = False # only inject mid-layer control weights into SD
 
-# 设置种子，模型中随机的部分现在都有序随机
-# 有两点优势：
-# 1. 消融实验控制一致性，使比较起跑线一样
-# 2. 对比试验给相同噪音，使比较起跑线一样
+# Set random seed so stochastic parts become reproducibly random
+# Two advantages:
+# 1) Keep consistency in ablation studies for fair comparison
+# 2) Use identical noise for comparison experiments for fair starting points
 pl.seed_everything(42, workers=True)
 torch.backends.cudnn.benchmark = True
 torch.backends.cudnn.deterministic = False
@@ -76,9 +76,9 @@ model.sd_locked = sd_locked
 model.only_mid_control = only_mid_control
 
 # Misc
-dataset = MyDataset(root=args.metadata) # 是tutorial_dataset.py的function，用刚才修改的脚本去创建一个dataset
+dataset = MyDataset(root=args.metadata) # function from tutorial_dataset.py, creates dataset from modified script
 dataloader = DataLoader(dataset, num_workers=4, batch_size=args.batch_size, shuffle=True, drop_last=True)
-logger = ImageLogger(batch_frequency=logger_freq, save_dir=args.image_log_dir) # 使用pytorch-lignting: pl.Trainer的callbacks方法
+logger = ImageLogger(batch_frequency=logger_freq, save_dir=args.image_log_dir) # use pytorch-lightning callback in pl.Trainer
 tb_logger = TensorBoardLogger(save_dir=args.ckpt_dir, name="", version="")
 checkpoint_callback = ModelCheckpoint(
     dirpath=args.ckpt_dir,
@@ -88,7 +88,7 @@ checkpoint_callback = ModelCheckpoint(
     enable_version_counter=False,
 )
 
-# 处理 AUTODL out of space 的解决策略
+# Strategy for AUTODL out-of-space issues
 # from pytorch_lightning.callbacks import ModelCheckpoint
 # checkpoint_callback = ModelCheckpoint(
 #     dirpath="/root/autodl-tmp/checkpoints",  # Save to persistent storage
@@ -98,12 +98,12 @@ checkpoint_callback = ModelCheckpoint(
 #     every_n_epochs=1,   # Save every epoch (reduce if needed)
 # )
 
-# 单卡训练配置trainer：
+# Single-GPU trainer configuration:
 # trainer = pl.Trainer(gpus=1, precision=16, callbacks=[logger], max_epochs=20)
-# 以下命令适用新版pytorch：
+# The following command applies to newer PyTorch versions:
 # trainer = pl.Trainer(accelerator="gpu", devices=1, precision=16, callbacks=[logger], max_epochs=1000, accumulate_grad_batches=2) 
 
-# 处理 AUTODL out of space 的解决策略
+# Strategy for AUTODL out-of-space issues
 # trainer = pl.Trainer(accelerator="gpu", devices=1, precision=16, callbacks=[logger, checkpoint_callback], max_epochs=2, accumulate_grad_batches=2) 
 trainer = pl.Trainer(
     accelerator="gpu",
@@ -116,9 +116,9 @@ trainer = pl.Trainer(
     logger=tb_logger,
 )
 
-# 多卡训练配置trainer：
-# 并行算法有两种：1. ddp; 2. dp
-# 训练的精度 float
+# Multi-GPU trainer configuration:
+# Two parallel algorithms: 1) ddp; 2) dp
+# Training precision float
 # trainer = pl.Trainer(strategy="ddp", accelerator="gpu", devices=4, precision=16, callbacks=[logger], max_epochs=100, accumulate_grad_batches=4)
 # trainer = pl.Trainer(strategy="ddp", accelerator="gpu", devices=4, precision=16, callbacks=[logger], max_epochs=60)
 # trainer = pl.Trainer(strategy="ddp_find_unused_parameters_true", accelerator="gpu", devices=4, precision=16, callbacks=[logger], max_epochs=2)

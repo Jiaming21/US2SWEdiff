@@ -1,27 +1,27 @@
-# pix2pix — Laplacian→SWE（256）：train → test → 三公开集 infer
+# pix2pix — Laplacian->SWE (256): train -> test -> infer on three public sets
 
-规范数据根（原始 US/SWE/Laplacian 与 `infer/*/laplacian`）：
+Canonical data root (original US/SWE/Laplacian and `infer/*/laplacian`):
 
   /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/BreastCA-img
 
-本仓库训练用对齐数据：`./datasets/laplacian-swe/`（`train_A`/`train_B` = Laplacian/SWE，`test_*` 同理）。若尚未生成，可用 `../pix2pixHD/prepare_pix2pixhd_data.py` 将 `BreastCA-img` 的 metadata 拷成 `00000.png` 命名，并把输出目录指到 `pix2pix/datasets`（仅 `--tasks laplacian-swe`）；若你的 `metadata_laplacian.json` 为 **JSONL**，需先转成 JSON 数组或改脚本按行读取。
+Aligned training data in this repository: `./datasets/laplacian-swe/` (`train_A`/`train_B` = Laplacian/SWE, same for `test_*`). If not generated yet, use `../pix2pixHD/prepare_pix2pixhd_data.py` to copy `BreastCA-img` metadata into `00000.png` naming and set output to `pix2pix/datasets` (only `--tasks laplacian-swe`); if your `metadata_laplacian.json` is **JSONL**, convert it to a JSON array first or modify the script to read line by line.
 
-工作目录：
+Working directory:
 
   cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/pix2pix
 
 ---
 
-## 训练
+## Training
 
-数据根目录：`./datasets/laplacian-swe/`。
-由 `train_A` + `train_B` 经 `make_dataset_aligned.py` 自动生成 `train/`
+Data root: `./datasets/laplacian-swe/`.
+`train/` is automatically generated from `train_A` + `train_B` via `make_dataset_aligned.py`
 
-一键：
+One-shot command:
 
   bash scripts/train_breastca_256p.sh laplacian
 
-等价 `train.py`（与脚本一致；默认开 W&B，不需要可在命令中去掉 `--use_wandb` 与 `--wandb_project_name`）：
+Equivalent `train.py` command (same as script; W&B enabled by default, remove `--use_wandb` and `--wandb_project_name` if not needed):
 
   python train.py \
     --dataroot ./datasets/laplacian-swe \
@@ -42,21 +42,21 @@
     --use_wandb \
     --wandb_project_name GAN
 
-权重输出：`./checkpoints/laplacian2swe_pix2pix_256/`
+Checkpoint output: `./checkpoints/laplacian2swe_pix2pix_256/`
 
 ---
 
-## 测试
+## Testing
 
-由 `test_A` + `test_B` 经 `make_dataset_aligned.py` 生成 `test/`
+`test/` is generated from `test_A` + `test_B` via `make_dataset_aligned.py`
 
-一键：
+One-shot command:
 
   bash scripts/test_breastca_256p.sh laplacian 10
 
-第二个参数为 epoch；`latest` 表示最新 checkpoint。
+The second argument is epoch; `latest` means the latest checkpoint.
 
-等价 `test.py`：
+Equivalent `test.py` command:
 
   python test.py \
     --dataroot ./datasets/laplacian-swe \
@@ -72,23 +72,23 @@
     --preprocess resize_and_crop \
     --num_test 100000
 
-默认结果目录（未指定 `--results_dir` 时）：`./results/laplacian2swe_pix2pix_256/test_10/images/`
+Default result directory (when `--results_dir` is not specified): `./results/laplacian2swe_pix2pix_256/test_10/images/`
 
 ---
 
-## 数据位置（与 BreastCA-img/infer 对齐）
+## Data locations (aligned with BreastCA-img/infer)
 
-源 Laplacian 图：`BreastCA-img/infer/<DATASET>/laplacian/`（或你已拷到 `datasets/laplacian-swe/infer_*_A`）
+Source Laplacian images: `BreastCA-img/infer/<DATASET>/laplacian/` (or already copied to `datasets/laplacian-swe/infer_*_A`)
 
-| 数据集 | Laplacian 输入目录（A） | 对齐后的 dataroot（内含脚本生成的 `test/`） |
+| Dataset | Laplacian input directory (A) | Aligned dataroot (contains script-generated `test/`) |
 |--------|-------------------------|---------------------------------------------|
-| BLUSG  | `infer_BLUSG_A/` （252 张） | `infer_BLUSG/` |
-| BUSBRA | `infer_BUSBRA_A/` （1875 张） | `infer_BUSBRA/` |
-| BUSI   | `infer_BUSI_A/` （647 张） | `infer_BUSI/` |
+| BLUSG  | `infer_BLUSG_A/` (252 images) | `infer_BLUSG/` |
+| BUSBRA | `infer_BUSBRA_A/` (1875 images) | `infer_BUSBRA/` |
+| BUSI   | `infer_BUSI_A/` (647 images) | `infer_BUSI/` |
 
-以上路径均在 `datasets/laplacian-swe/` 下。
+All paths above are under `datasets/laplacian-swe/`.
 
-## 外推：仅 Laplacian A 的三个数据集 infer（epoch 10）
+## Extrapolation: infer on three datasets using Laplacian A only (epoch 10)
 
 ### 1) BLUSG
 
@@ -171,15 +171,15 @@
     --results_name laplacian2swe_pix2pix_256/infer_BUSI_10 \
     --results_flat
 
-## 外推 infer 结果目录（epoch 10）
+## Extrapolated infer result directories (epoch 10)
 
-`test.py` 使用 `--results_dir ./results`、`--results_name laplacian2swe_pix2pix_256/infer_<DATASET>_10` 与 **`--results_flat`**（不再生成 `test_10/` 子目录）。图片在：
+`test.py` uses `--results_dir ./results`, `--results_name laplacian2swe_pix2pix_256/infer_<DATASET>_10`, and **`--results_flat`** (no longer creates a `test_10/` subdirectory). Images are in:
 
   ./results/laplacian2swe_pix2pix_256/infer_BLUSG_10/images/
   ./results/laplacian2swe_pix2pix_256/infer_BUSBRA_10/images/
   ./results/laplacian2swe_pix2pix_256/infer_BUSI_10/images/
 
-绝对路径（在集群上，同级目录下还有 `index.html`）：
+Absolute path (on cluster, `index.html` is in the same level directory):
 
   /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/pix2pix/results/laplacian2swe_pix2pix_256/infer_BLUSG_10/images/
   /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/US2SWEdiff/pix2pix/results/laplacian2swe_pix2pix_256/infer_BUSBRA_10/images/

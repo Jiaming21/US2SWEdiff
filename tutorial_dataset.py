@@ -36,28 +36,28 @@ class MyDataset(Dataset):
         # prompt_source = item['prompt_source']
         prompt_target = item['prompt_target']  # prompt
         
-        # "label-free"训练技术，但是infer的时候还是要把label都加上
+        # "label-free" training strategy, but labels are still added during inference
         # p = random.random()
         # if p > 0.95:
         #     prompt_target = ""
         
-        source = Image.open(source_filename).convert('RGB') # 'L'灰度图，单通道
+        source = Image.open(source_filename).convert('RGB') # 'L' means grayscale, single channel
         target = Image.open(target_filename).convert('RGB')
 
-        source = np.array(source).astype(np.uint8) # 默认操作
-        target = np.array(target).astype(np.uint8) # 默认操作
+        source = np.array(source).astype(np.uint8) # default operation
+        target = np.array(target).astype(np.uint8) # default operation
 
         preprocess = self.transform()(image=target, mask=source)
         source, target = preprocess['mask'], preprocess['image']
         
         ############ Mask-Image Pair ############
-        source = source.astype(np.float32) / 255.0 # SD默认将范围变成[-1,1]，也可以使用normaliaztion
-        target = target.astype(np.float32) / 127.5 - 1.0 # 对target必须要进行normaliaztion，将范围变成[-1,1]
+        source = source.astype(np.float32) / 255.0 # SD usually scales to [-1,1], normalization can also be used
+        target = target.astype(np.float32) / 127.5 - 1.0 # target must be normalized to [-1,1]
 
         return dict(jpg=target, txt=prompt_target, hint=source)
 
     def transform(self, size=256, is_check_shapes=False):
-        transforms = albumentations.Compose( # 是一个百度的库
+        transforms = albumentations.Compose( # an augmentation library
                         [
                             albumentations.Resize(height=size, width=size),
                         ]

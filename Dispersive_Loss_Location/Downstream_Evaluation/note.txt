@@ -1,11 +1,11 @@
 #### train
 
-生成图路径为 {project_root}/{MDHI_*}/images/infer/{BLUSG|BUSBRA|BUSI}/laplacian/images
-`--sources` 中的名字用来填充 {MDHI_*}（与项目下 MDHI_dispersive_upto_* 目录名一致）。
+Generated image path: {project_root}/{MDHI_*}/images/infer/{BLUSG|BUSBRA|BUSI}/laplacian/images
+Names in `--sources` are used to fill {MDHI_*} (must match directory names like MDHI_dispersive_upto_* in the project).
 
-仅真实 SWE 训练的权重保存在 `{save_root}/**Real_SWE**/weights_{epochs}epochs.pth`（infer 也从该目录加载）。
+Weights trained only on real SWE are saved at `{save_root}/**Real_SWE**/weights_{epochs}epochs.pth` (infer also loads from this directory).
 
-# ResNet-152（本目录 scripts/train/ResNet-152.py，自包含，与 VGG-16 同数据逻辑；不依赖 SWEBreCA-Pred）
+# ResNet-152 (`scripts/train/ResNet-152.py` in this directory, self-contained, same data logic as VGG-16; does not depend on SWEBreCA-Pred)
 conda activate controlnet_new
 cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Location/Downstream_Evaluation/scripts/train && \
 python ResNet-152.py \
@@ -53,11 +53,11 @@ python VGG-16.py \
   --num_workers 4 \
   --seed 2026
 
-#### infer（--epochs 须与训练生成的 weights_{epochs}epochs.pth 一致）
+#### infer (`--epochs` must match the generated `weights_{epochs}epochs.pth` from training)
 
-# --summary_csv 传空或未写：写入 {save_root 的上一级}/summary_{epochs}epochs.csv
+# If `--summary_csv` is empty or omitted: write to {parent_of_save_root}/summary_{epochs}epochs.csv
 
-# ResNet-152（本目录 scripts/infer/ResNet-152.py，自包含；不依赖 SWEBreCA-Pred）
+# ResNet-152 (`scripts/infer/ResNet-152.py` in this directory, self-contained; does not depend on SWEBreCA-Pred)
 conda activate controlnet_new
 cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Location/Downstream_Evaluation/scripts/infer && \
 python ResNet-152.py \

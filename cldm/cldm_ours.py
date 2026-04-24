@@ -87,7 +87,7 @@ class PatchMerging(nn.Module):
         x2 = x[:, 0::2, 1::2, :]  # B H/2 W/2 C
         x3 = x[:, 1::2, 1::2, :]  # B H/2 W/2 C
 
-        x = torch.cat([x0, x1, x2, x3], -1)  # 处理变化后的结构 (B, H/2, W/2, 4*C)
+        x = torch.cat([x0, x1, x2, x3], -1)  # Process reshaped structure (B, H/2, W/2, 4*C)
         x = x.view(B, -1, 4 * C)  # (B, H/2 * W/2, 4*C)
         x = self.norm(x)  # Apply normalization
         x = self.reduction(x)  # (B, H/2 * W/2, 2*C)
@@ -101,8 +101,8 @@ class FeatureExtractor(nn.Module):
         self.initial_conv = conv_nd(dim, hint_channels, 16, kernel_size=3, stride=1, padding=1)
         self.layer1 = MHCResidualBlock(dim, 16)
         self.conv_before_res2 = conv_nd(dim, 16, 32, kernel_size=3, stride=1, padding=1)
-        self.layer2 = MHCResidualBlock(dim, 32) # ResidualBlock size channel都不变
-        self.patch_merge1 = PatchMerging(patch_dim=32) # 相当于降采样(size/2)， channel*2
+        self.layer2 = MHCResidualBlock(dim, 32) # ResidualBlock: size and channels stay unchanged
+        self.patch_merge1 = PatchMerging(patch_dim=32) # Equivalent to downsampling (size/2), channel*2
         self.conv_before_res3 = conv_nd(dim, 64, 64, kernel_size=3, stride=1, padding=1)
         self.layer3 = MHCResidualBlock(dim, 64)
         self.patch_merge2 = PatchMerging(patch_dim=64)
@@ -110,7 +110,7 @@ class FeatureExtractor(nn.Module):
         self.layer4 = MHCResidualBlock(dim, 128)
         self.patch_merge3 = PatchMerging(patch_dim=128)
         self.conv_before_res5 = conv_nd(dim, 256, 256, kernel_size=3, stride=1, padding=1)
-        self.layer5 = MHCResidualBlock(dim, 256) # 上升平缓 16 32 64 128 256
+        self.layer5 = MHCResidualBlock(dim, 256) # Smooth growth: 16 32 64 128 256
 
     def forward(self, x):
         x = self.initial_conv(x)  # (B, 16, H, W)
@@ -260,8 +260,8 @@ class ControlNet(nn.Module):
         )
         self.zero_convs = nn.ModuleList([self.make_zero_conv(model_channels)])
 
-        self.input_hint_block = TimestepEmbedSequential( # 收敛更快
-            FeatureExtractor(hint_channels), # yaml文件中给hint_channels赋值了
+        self.input_hint_block = TimestepEmbedSequential( # Faster convergence
+            FeatureExtractor(hint_channels), # hint_channels is set in the yaml file
             zero_module(conv_nd(dims, 256, model_channels, 3, padding=1))
         )
 

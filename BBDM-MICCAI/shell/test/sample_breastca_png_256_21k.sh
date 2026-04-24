@@ -1,6 +1,6 @@
 #!/bin/bash
-# 在 breastca_png_256 下三个实验各自用 21000 步全权重做 inference，结果写到各实验下的 sample_to_eval/step_model_21000.pth/
-# 在 BBDM 项目根目录执行: bash shell/test/sample_breastca_png_256_21k.sh
+# For three experiments under breastca_png_256, run inference with full 21000-step weights; results go to each experiment's sample_to_eval/step_model_21000.pth/
+# Run in BBDM project root: bash shell/test/sample_breastca_png_256_21k.sh
 
 set -e
 source "$(conda info --base)/etc/profile.d/conda.sh"

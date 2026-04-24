@@ -13,20 +13,20 @@ Test: /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/ \
 MDHI_dispersive_upto_8_w{weight}/images/test/images
 
 
-呈现图片，左边是图片序号，右边每列分别是Real SWE，Laplacian, w0.01, 0.03, 0.05, 0.07, 0.09
+Render images: left side is image index; columns on the right are Real SWE, Laplacian, w0.01, 0.03, 0.05, 0.07, 0.09
 
-字体用Comic Sans MS
+Use Comic Sans MS font
 
-脚本放在/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Visualization/Image下
-
-
+Script location: /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Visualization/Image
 
 
-# 命令：
+
+
+# Command:
 conda activate controlnet_new
 cd /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Visualization/Image
 python make_comparison_grid.py
 
-# 输出目录：
+# Output directory:
 /n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight/Visualization/Image/output
 

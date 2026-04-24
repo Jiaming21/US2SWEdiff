@@ -21,7 +21,7 @@ def get_params(opt, size):
     if opt.resize_or_crop == 'resize_and_crop':
         new_h = new_w = opt.loadSize
     elif opt.resize_or_crop == 'resize':
-        # 只缩放到相同大小，不裁剪
+        # Only resize to the same size, no cropping
         new_h = new_w = opt.loadSize
     elif opt.resize_or_crop == 'scale_width_and_crop':
         new_w = opt.loadSize

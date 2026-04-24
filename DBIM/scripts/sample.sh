@@ -1,15 +1,15 @@
 export PYTHONPATH=$PYTHONPATH:./
 
-# 与 train_bridge.sh 一致：按 torch.cuda.device_count()（尊重 CUDA_VISIBLE_DEVICES）
+# Consistent with train_bridge.sh: use torch.cuda.device_count() (respect CUDA_VISIBLE_DEVICES)
 NGPU=$(python3 -c "import torch; print(torch.cuda.device_count())" 2>/dev/null || echo 0)
 NGPU=$(echo "$NGPU" | tr -d '[:space:]')
 if [[ -z "$NGPU" || "$NGPU" -lt 1 ]]; then
-  echo "WARN: torch.cuda.device_count()=${NGPU:-0}，使用 NPROC_PER_NODE=1"
+  echo "WARN: torch.cuda.device_count()=${NGPU:-0}, use NPROC_PER_NODE=1"
   NGPU=1
 fi
 NPROC_PER_NODE=${NPROC_PER_NODE:-$NGPU}
 if [[ "$NPROC_PER_NODE" -gt "$NGPU" ]]; then
-  echo "WARN: NPROC_PER_NODE=$NPROC_PER_NODE > torch.cuda.device_count()=$NGPU，已钳制为 $NGPU"
+  echo "WARN: NPROC_PER_NODE=$NPROC_PER_NODE > torch.cuda.device_count()=$NGPU, clamped to $NGPU"
   NPROC_PER_NODE=$NGPU
 fi
 if [[ -z "${MASTER_PORT:-}" ]]; then
@@ -41,7 +41,7 @@ elif [[ $DATASET_NAME == "imagenet_inpaint_center" ]]; then
     SPLIT=test
     MODEL_PATH=assets/ckpts/imagenet256_inpaint_ema_0.9999_400000.pt
 elif [[ $DATASET_NAME == "breastca_l2s" ]]; then
-    # 官方 test：`assets/datasets/breastca_laplacian2swe/val/`（EdgesDataset train=False）
+    # Official test: `assets/datasets/breastca_laplacian2swe/val/` (EdgesDataset train=False)
     SPLIT=test
     MODEL_PATH=${MODEL_PATH:-workdir/breastca_l2s-ddbm/model_0.pt}
 elif [[ $DATASET_NAME == "breastca_infer_blusg" ]]; then

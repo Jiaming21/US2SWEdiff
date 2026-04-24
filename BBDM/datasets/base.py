@@ -10,7 +10,7 @@ class ImagePathDataset(Dataset):
         self.image_paths = image_paths
         self._length = len(image_paths)
         self.flip = flip
-        self.to_normal = to_normal # 是否归一化到[-1, 1]
+        self.to_normal = to_normal # whether to normalize to [-1, 1]
 
     def __len__(self):
         if self.flip:

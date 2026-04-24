@@ -14,7 +14,7 @@ from torchvision import models, transforms
 IMG_EXTS = (".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff", ".webp")
 BASE = "/n/holylfs05/LABS/zhuang_lab/Lab/Jiaming/Dispersive_Loss_Weight"
 DEFAULT_DATASETS = ["BLUSG", "BUSBRA", "BUSI"]
-# 与 BASE 下实验目录名一致；各源生成图在：
+# Must match experiment directory names under BASE; generated images for each source are in:
 # {project_root}/{src}/images/infer/{BLUSG|BUSBRA|BUSI}/laplacian/images
 DEFAULT_SOURCES = [
     "MDHI_dispersive_upto_8_w0.01",
@@ -166,7 +166,7 @@ def main():
         "--project_root",
         type=str,
         default=BASE,
-        help="含实验子目录的根路径；生成图在 {root}/{src}/images/infer/{数据集}/laplacian/images",
+        help="Root path containing experiment subdirectories; generated images are in {root}/{src}/images/infer/{dataset}/laplacian/images",
     )
     parser.add_argument(
         "--save_root",
